@@ -1,1 +1,7 @@
 <p>hairstyles works!</p>
+
+<ul *ngIf="$hairstyles | async as hairstyles">
+    <li *ngFor="let hairstyle of hairstyles">
+        #{{hairstyle.id}} - Name: {{hairstyle.name}}
+    </li>
+</ul>
