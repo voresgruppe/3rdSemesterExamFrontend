@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http'
 
 import { BookingsRoutingModule } from './bookings-routing.module';
 import { BookingComponent } from './booking-pages/booking/booking.component';
@@ -15,7 +16,8 @@ import { InformationComponent } from './booking-pages/information/information.co
   ],
   imports: [
     CommonModule,
-    BookingsRoutingModule
+    BookingsRoutingModule,
+    HttpClientModule
   ]
 })
 export class BookingsModule { }

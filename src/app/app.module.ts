@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,11 +14,10 @@ import { HomeComponent } from './home/home-page/home/home.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'about', component: AboutComponent },
-  { path: 'contact', component: ContactComponent },
-  { path: 'booking', component: BookingComponent },
-  { path: 'hairstyles', component: HairstylesComponent },
-  { path: 'information', component: InformationComponent }
+
+  { path: 'bookings', loadChildren: () => import('./bookings/bookings.module').then(m => m.BookingsModule) },
+  { path: 'about', loadChildren: () => import('./about/about.module').then(m => m.AboutModule) },
+  { path: 'contact', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule) }
 ]
 
 @NgModule({
@@ -26,7 +26,8 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

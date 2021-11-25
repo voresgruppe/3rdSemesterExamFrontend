@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Hairstyle } from '../../shared/hairstyle.model';
+import { HairstyleService } from '../../shared/hairstyle.service';
 
 @Component({
   selector: 'app-hairstyles',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HairstylesComponent implements OnInit {
 
-  constructor() { }
+  $hairstyles: Observable<Hairstyle[]> | undefined
+
+  constructor(private _service: HairstyleService) { }
 
   ngOnInit(): void {
+    this.$hairstyles = this._service.getHairstyles()
   }
 
 }
