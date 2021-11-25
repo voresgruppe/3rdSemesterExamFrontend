@@ -1,7 +1,19 @@
-<p>hairstyles works!</p>
-
+<h2 *ngIf="$hairstyles | async as hairstyles; else errorDB">Informationer hentet fra databases:</h2>
 <ul *ngIf="$hairstyles | async as hairstyles">
     <li *ngFor="let hairstyle of hairstyles">
         #{{hairstyle.id}} - Name: {{hairstyle.name}}
     </li>
+</ul>
+
+<ng-template #errorDB>
+    <h2>Error getting items from database...</h2>
+</ng-template>
+
+<br><br><br>
+<h3>Stuff needed:</h3>
+<ul>
+    <li>Images</li>
+    <li>Descriptions</li>
+    <li>Prices (if possible)</li>
+    <li>Time to cut</li>
 </ul>
