@@ -6,13 +6,15 @@ import { BookingsRoutingModule } from './bookings-routing.module';
 import { BookingComponent } from './booking-pages/booking/booking.component';
 import { HairstylesComponent } from './booking-pages/hairstyles/hairstyles.component';
 import { InformationComponent } from './booking-pages/information/information.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 @NgModule({
   declarations: [
     BookingComponent,
     HairstylesComponent,
-    InformationComponent
+    InformationComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
