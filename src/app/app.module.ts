@@ -4,9 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about-page/about/about.component';
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home-page/home/home.component';
 
 const routes: Routes = [
-  { path: 'home', component: AppComponent },
+  { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'about', component: AboutComponent }
 ]
