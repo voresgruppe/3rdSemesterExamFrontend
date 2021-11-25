@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+
+p,h1,h2,h3,h4,h5,h6,a {
+    font-family: arvo;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+        color: #3ca0e7;
+    }
+}
