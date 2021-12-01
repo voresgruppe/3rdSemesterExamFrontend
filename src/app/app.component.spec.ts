@@ -8,9 +8,6 @@ describe('AppComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        RouterModule,
-        ReactiveFormsModule,
-        FormsModule,
       ],
     }).compileComponents();
   });
