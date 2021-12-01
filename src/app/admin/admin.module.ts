@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import {LoginComponent} from "./admin-page/login/login.component";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { AdminHomeComponent } from './admin-page/admin-home/admin-home.component';
 
 
@@ -15,6 +15,7 @@ import { AdminHomeComponent } from './admin-page/admin-home/admin-home.component
   imports: [
     CommonModule,
     AdminRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
   ]
 })
