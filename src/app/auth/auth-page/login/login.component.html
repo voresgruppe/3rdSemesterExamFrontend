@@ -1,6 +1,9 @@
-<p>Login!</p>
+<p>For Employees</p>
 
-<form [formGroup]="loginForm" (ngSubmit)="Login()">
+
+
+
+<form *ngIf="!jwt else logoutTemp" [formGroup]="loginForm" (ngSubmit)="login()">
 
   <label for="username">Username: </label>
   <input id="username" type="text" formControlName="username">
@@ -11,3 +14,11 @@
   <button type="submit">Login</button>
 
 </form>
+
+
+<ng-template #logoutTemp>
+  <button (click)="logout()" style="margin: 5px">Logout</button>
+
+</ng-template>
+
+
