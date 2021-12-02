@@ -4,6 +4,7 @@ import {FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../../shared/auth.service";
 import {LoginDto} from "../../shared/login.dto";
+import {take} from "rxjs/operators";
 
 @Component({
   selector: 'app-login',
@@ -16,8 +17,13 @@ export class LoginComponent implements OnInit {
     username: [''],
     password: ['']
   });
+  jwt: string | null | undefined;
 
-  constructor(private _fb: FormBuilder, private _auth: AuthService) { }
+  constructor(private _fb: FormBuilder, private _auth: AuthService, private  _router: Router) {
+    _auth.isLoggedIn$.subscribe(jwt =>{
+      this.jwt = jwt;
+    });
+  }
 
   ngOnInit(): void {
   }
@@ -27,8 +33,18 @@ export class LoginComponent implements OnInit {
     const loginDto = this.loginForm.value as LoginDto;
     this._auth.login(loginDto)
       .subscribe(token =>{
-        console.log('Token: ', token)
+        if(token && token.jwt){
+          this._router.navigateByUrl('auth/ehome')
+        }
+        //console.log('Token: ', token)
       });
 
+  }
+
+  logout() {
+    this._auth.logout()
+      .subscribe(loggedOut=>{
+        this._router.navigateByUrl('auth')
+    })
   }
 }
