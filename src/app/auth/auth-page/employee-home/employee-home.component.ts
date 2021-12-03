@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from "rxjs";
+import {async, Observable} from "rxjs";
 import {AppointmentService} from "../../shared/appointment.service";
 import {Appointment} from "../../shared/appointment.model";
 import {CustomerService} from "../../shared/customer.service";
 import {Customer} from "../../shared/customer.model";
+import {take} from "rxjs/operators";
 
 
 @Component({
@@ -16,6 +17,9 @@ export class EmployeeHomeComponent implements OnInit {
 
   $customers: Observable<Customer[]> | undefined;
   $appointments: Observable<Appointment[]> | undefined;
+  customer: Customer | undefined;
+  customerId: number = 1;
+
   showing: string | null | undefined;
   appointment= "appointment";
   customers = "customers";
@@ -26,6 +30,7 @@ export class EmployeeHomeComponent implements OnInit {
     this.$appointments = this._appointmentService.getAppointments();
     this.$customers =this._customerService.getCustomers();
     this.showing = null;
+    this.getCustomerById()
   }
   allCustomers() {
     this.showing = this.customers;
@@ -35,4 +40,22 @@ export class EmployeeHomeComponent implements OnInit {
 
     this.showing = this.appointment;
   }
+
+  getCustomerById(){
+    this._customerService.getCustomerById(this.customerId).subscribe(c => this.customer = c);
+
+
+    return this.customer;
+  }
+
+  setCustomerId(id: number){
+    this.customerId = id;
+    let name:  string = " ";
+
+    if(this.customer!= null){
+      name = this.customer.name
+    }
+    return name;
+  }
+
 }

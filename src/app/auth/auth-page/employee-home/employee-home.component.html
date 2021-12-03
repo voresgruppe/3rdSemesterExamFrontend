@@ -15,7 +15,8 @@
   <div *ngIf="showing == appointment">
     <ul *ngIf="$appointments | async as appointments">
       <li *ngFor="let appointment of appointments">
-        #{{appointment.id}} - Date: {{appointment.appointmentTime}}
+
+        #{{appointment.id}} - Customer: {{setCustomerId(appointment.customerId)}} Date: {{appointment.appointmentTime}}
       </li>
     </ul>
   </div>
