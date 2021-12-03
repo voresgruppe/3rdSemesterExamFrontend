@@ -1,1 +1,17 @@
-<p>employee-home works!</p>
+
+<li><a>Customer &dtrif;</a>
+  <ul class="dropdown">
+    <li><a (click)="allCustomers()" >All Customers</a></li>
+    <li><a (click)="showingAppointments()" >All Appointments</a></li>
+    <li><a routerLink="../">Logout</a></li>
+  </ul>
+
+  <p *ngIf="showing == null else showAppointments"> </p>
+
+  <ng-template #showAppointments>
+    <ul *ngIf="$appointments | async as appointments">
+      <li *ngFor="let appointment of appointments">
+        #{{appointment.id}} - Date: {{appointment.appointmentTime}}
+      </li>
+    </ul>
+  </ng-template>
