@@ -16,4 +16,8 @@ export class AppointmentService {
   getAppointments(): Observable<Appointment[]>{
     return this._http.get<Appointment[]>(`${environment.api}/Appointment`)
   }
+
+  getAppointmentsByEmployee(id: number):Observable<Appointment[]> {
+    return this._http.get<Appointment[]>(`${environment.api}/Appointment/GetByEmployee${id}`)
+  }
 }

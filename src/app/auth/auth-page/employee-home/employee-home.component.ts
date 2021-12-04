@@ -24,8 +24,12 @@ export class EmployeeHomeComponent implements OnInit {
 
   $customers: Customer[] | undefined;
   $appointments: Appointment[] | undefined;
+  $appointmentsByLoggedEmployee: Appointment[] | undefined;
   $hairstyles: Hairstyle[] | undefined;
+  $employees: Employee[] | undefined;
+
   $loggedEmployee: Employee | undefined;
+
 
 
   showing: string | null | undefined;
@@ -33,6 +37,7 @@ export class EmployeeHomeComponent implements OnInit {
   customers = "customers";
   hairstyles = "hairstyles";
   addCustomer = "addCustomer";
+  myAppointments = "myAppointments";
 
 
 
@@ -47,13 +52,16 @@ export class EmployeeHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this._appointmentService.getAppointments().subscribe(a => this.$appointments = a as Appointment[]);
+
     this._customerService.getCustomers().subscribe(a => this.$customers = a as Customer[]);
     this._hairstyleService.getHairstyles().subscribe(h=> this.$hairstyles = h as Hairstyle[])
+    this._employeeService.getEmployees().subscribe(e=> this.$employees= e as Employee[])
     let employeeId = this._auth.getEmployeeID();
     console.log(employeeId)
     if(employeeId!= 0)
     {
       this._employeeService.getEmployeeById(employeeId).subscribe(e=> this.$loggedEmployee = e);
+      this._appointmentService.getAppointmentsByEmployee(employeeId).subscribe(a => this.$appointmentsByLoggedEmployee = a as Appointment[]);
     }
 
 
@@ -100,6 +108,21 @@ export class EmployeeHomeComponent implements OnInit {
     return str
   }
 
+  //TODO hent via API
+  getEmployeeNameById(employeeId: number){
+
+    let str = "Error";
+
+    if(this.$employees)
+      for(let employee of this.$employees){
+        if(employee.id == employeeId){
+          str = employee.name
+        }
+      }
+
+    return str
+  }
+
   click_AddCustomer() {
       this.showing = this.addCustomer
   }
@@ -116,5 +139,9 @@ export class EmployeeHomeComponent implements OnInit {
 
   click_allHairstyles() {
     this.showing = this.hairstyles;
+  }
+
+  showingMyAppointments() {
+    this.showing = this.myAppointments;
   }
 }

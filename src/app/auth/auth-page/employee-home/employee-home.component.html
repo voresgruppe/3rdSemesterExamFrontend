@@ -30,6 +30,7 @@
     <li><a  class="card">Appointments&dtrif;</a>
       <ul class="dropdown">
         <li><a (click)="showingAppointments()">All Appointments</a></li>
+        <li><a (click)="showingMyAppointments()">My Appointments</a></li>
       </ul>
     </li>
     <li><a  class="card">Hairstyles &dtrif;</a>
@@ -72,7 +73,17 @@
       <li *ngFor="let appointment of $appointments">
 
         #{{appointment.id}} - Customer: {{getCustomerNameById(appointment.customerId)}} Date:
-        {{appointment.appointmentTime}}
+        {{appointment.appointmentTime}} - Employee: {{getEmployeeNameById(appointment.employeeId)}}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="showing == myAppointments">
+    <ul *ngIf="$appointmentsByLoggedEmployee">
+      <li *ngFor="let appointment of $appointmentsByLoggedEmployee">
+
+        #{{appointment.id}} - Customer: {{getCustomerNameById(appointment.customerId)}} Date:
+        {{appointment.appointmentTime}} - Employee: {{getEmployeeNameById(appointment.employeeId)}}
       </li>
     </ul>
   </div>
