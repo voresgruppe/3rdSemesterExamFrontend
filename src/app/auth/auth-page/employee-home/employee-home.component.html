@@ -1,11 +1,45 @@
-
-
-<li><a routerLink="../">Logout</a></li>
-<li><a>Customers &dtrif;</a>
-  <ul class="dropdown">
-    <li><a (click)="click_allCustomers()" >All Customers</a></li>
-    <li><a (click)="click_AddCustomer()" >Add Customer</a></li>
+<!--
+  <nav role="navigation" class="primary-navigation">
+  <ul>
+    <li><a routerLink="home">Home</a></li>
+    <li><a>Bookings &dtrif;</a>
+      <ul class="dropdown">
+        <li><a routerLink="bookings/booking">Booking</a></li>
+        <li><a routerLink="bookings/hairstyles">Hairstyles</a></li>
+        <li><a routerLink="bookings/information">Information</a></li>
+      </ul>
+    </li>
+    <li><a routerLink="about">About</a></li>
+    <li><a routerLink="contact">Contact</a></li>
+    <li><a routerLink="auth/ehome">For Employees</a></li>
   </ul>
+</nav>
+-->
+
+<nav role="navigation" class="primary-navigation">
+  <ul>
+    <li><a routerLink="../" class="card">Logout</a></li>
+    <li><a  class="card">Customers &dtrif;</a>
+      <ul class="dropdown">
+        <li><a (click)="click_allCustomers()">All Customers</a></li>
+        <li><a (click)="click_AddCustomer()">Add Customer</a></li>
+      </ul>
+    </li>
+    <li><a  class="card">Appointments&dtrif;</a>
+      <ul class="dropdown">
+        <li><a (click)="showingAppointments()">All Appointments</a></li>
+      </ul>
+    </li>
+    <li><a  class="card">Hairstyles &dtrif;</a>
+      <ul class="dropdown">
+        <li><a (click)="click_allHairstyles()">All Hairstyles</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+<div class="content">
 
   <div *ngIf="showing == customers">
     <ul *ngIf="$customers">
@@ -15,43 +49,31 @@
     </ul>
   </div>
 
-  <form *ngIf="showing == addCustomer"[formGroup]="customerForm" (ngSubmit)="CreateCustomer()">
+  <form *ngIf="showing == addCustomer" [formGroup]="customerForm" (ngSubmit)="CreateCustomer()">
 
     <label for="name">Name: </label>
     <input id="name" type="text" formControlName="name">
+    <br>
 
     <label for="phone">Phone: </label>
     <input id="phone" type="text" formControlName="phoneNumber">
-
+    <br>
     <label for="email">Email: </label>
     <input id="email" type="text" formControlName="email">
-
+    <br>
     <button type="submit">Submit</button>
 
   </form>
-
-
-
-<li><a>Appointments&dtrif;</a>
-  <ul class="dropdown">
-    <li><a (click)="showingAppointments()" >All Appointments</a></li>
-  </ul>
-</li>
 
   <div *ngIf="showing == appointments">
     <ul *ngIf="$appointments">
       <li *ngFor="let appointment of $appointments">
 
-        #{{appointment.id}} - Customer: {{getCustomerNameById(appointment.customerId)}} Date: {{appointment.appointmentTime}}
+        #{{appointment.id}} - Customer: {{getCustomerNameById(appointment.customerId)}} Date:
+        {{appointment.appointmentTime}}
       </li>
     </ul>
   </div>
-
-
-<li><a>Hairstyles &dtrif;</a>
-  <ul class="dropdown">
-    <li><a (click)="click_allHairstyles()" >All Hairstyles</a></li>
-  </ul>
 
   <div *ngIf="showing == hairstyles">
     <ul *ngIf="$hairstyles">
@@ -60,3 +82,5 @@
       </li>
     </ul>
   </div>
+
+</div>

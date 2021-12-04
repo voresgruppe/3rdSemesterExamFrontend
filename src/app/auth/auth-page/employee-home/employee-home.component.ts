@@ -14,7 +14,7 @@ import {HairstyleService} from "../../../shared/hairstyle.service";
 @Component({
   selector: 'app-employee-home',
   templateUrl: './employee-home.component.html',
-  styleUrls: ['./employee-home.component.css']
+  styleUrls: ['./employee-home.component.scss']
 })
 
 export class EmployeeHomeComponent implements OnInit {
