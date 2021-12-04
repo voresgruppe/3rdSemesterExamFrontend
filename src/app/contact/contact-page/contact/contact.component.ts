@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {EmployeeService} from "../../../shared/employee.service";
+import {Employee} from "../../../shared/employee.model";
+import {observable} from "rxjs";
 
 @Component({
   selector: 'app-contact',
@@ -6,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
+  $employees: Employee[] | undefined;
 
-  constructor() { }
+  constructor(private _employeeService: EmployeeService) { }
 
   ngOnInit(): void {
+    this._employeeService.getEmployees().subscribe(e=> this.$employees = e);
   }
 
 }
