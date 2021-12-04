@@ -6,18 +6,20 @@ import { BookingsRoutingModule } from './bookings-routing.module';
 import { BookingComponent } from './booking-pages/booking/booking.component';
 import { HairstylesComponent } from './booking-pages/hairstyles/hairstyles.component';
 import { InformationComponent } from './booking-pages/information/information.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
   declarations: [
     BookingComponent,
     HairstylesComponent,
-    InformationComponent
+    InformationComponent,
   ],
   imports: [
     CommonModule,
     BookingsRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
   ]
 })
 export class BookingsModule { }

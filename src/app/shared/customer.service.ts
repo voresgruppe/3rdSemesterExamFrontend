@@ -19,6 +19,10 @@ export class CustomerService{
     return this._http.get<Customer>(`${environment.api}/Customer/${id}`)
   }
 
+  getCustomerByPhone(phone: string): Observable<Customer>{
+    return this._http.get<Customer>(`${environment.api}/Customer/GetByPhone(${phone}`)
+  }
+
   createCustomer(customer: Customer): Observable<Customer>{
     return this._http.post<Customer>(`${environment.api}/Customer/CreateCustomer`, customer)
   }

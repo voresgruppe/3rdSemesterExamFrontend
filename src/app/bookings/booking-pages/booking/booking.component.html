@@ -1,5 +1,18 @@
 <p>booking works!</p>
 
+<label>Type in your phone number</label>
+<input type="text" id="phoneNumber">
+<button (click)="checkPhone()">Submit</button>
+
+<div *ngIf="!checkPhone()">
+  we need to add you to our system
+
+</div>
+
+<div *ngIf="checkPhone()">
+  you are already in our system
+
+</div>
 
 <br><br><br>
 
