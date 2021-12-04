@@ -7,6 +7,14 @@
     <li><a (click)="click_AddCustomer()" >Add Customer</a></li>
   </ul>
 
+  <div *ngIf="showing == customers">
+    <ul *ngIf="$customers">
+      <li *ngFor="let customer of $customers">
+        #{{customer.id}} - Name: {{customer.name}} - PhoneNumber: {{customer.phoneNumber}} - Email: {{customer.email}}
+      </li>
+    </ul>
+  </div>
+
   <form *ngIf="showing == addCustomer"[formGroup]="customerForm" (ngSubmit)="CreateCustomer()">
 
     <label for="name">Name: </label>
@@ -35,14 +43,6 @@
       <li *ngFor="let appointment of $appointments">
 
         #{{appointment.id}} - Customer: {{getCustomerNameById(appointment.customerId)}} Date: {{appointment.appointmentTime}}
-      </li>
-    </ul>
-  </div>
-
-  <div *ngIf="showing == customers">
-    <ul *ngIf="$customers">
-      <li *ngFor="let customer of $customers">
-        #{{customer.id}} - Name: {{customer.name}} - PhoneNumber: {{customer.phoneNumber}} - Email: {{customer.email}}
       </li>
     </ul>
   </div>
