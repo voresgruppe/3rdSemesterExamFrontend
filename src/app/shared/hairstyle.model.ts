@@ -1,5 +1,7 @@
 export interface Hairstyle {
     id: Number,
     name: string,
-    estimatedTime: Number
+    estimatedTime: Number,
+    description: string,
+    price: number,
 }
