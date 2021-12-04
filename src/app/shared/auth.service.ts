@@ -8,6 +8,7 @@ import {take, tap} from "rxjs/operators";
 
 
 const jwtToken = 'jwtToken';
+const employeeId = 'employeeId';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,10 @@ export class AuthService {
         tap(token=>{
           if(token && token.jwt){
             localStorage.setItem(jwtToken, token.jwt)
+            if(token.employeeId){
+              localStorage.setItem(employeeId, String(token.employeeId))
+              console.log(this.getEmployeeID() + "employee id")
+            }
             this.isLoggedIn$.next(token.jwt);
           }else {
             this.logout()
@@ -35,11 +40,15 @@ export class AuthService {
 
   getToken(): string| null {
     return localStorage.getItem(jwtToken);
+  }
 
+  getEmployeeID(): number{
+    return Number(localStorage.getItem(employeeId));
   }
 
   logout(): Observable<boolean> {
     localStorage.removeItem(jwtToken)
+    localStorage.removeItem(employeeId)
     this.isLoggedIn$.next(this.getToken());
     return of(true).pipe(
       take(1)

@@ -1,6 +1,6 @@
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Admin} from "./admin.model";
+import {Employee} from "./employee.model";
 import {environment} from "../../environments/environment";
 import {Appointment} from "./appointment.model";
 import {Injectable} from "@angular/core";

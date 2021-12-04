@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AdminService} from "../../../shared/admin.service";
+import {EmployeeService} from "../../../shared/employee.service";
 import {FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../shared/auth.service";

@@ -9,6 +9,9 @@ import {FormBuilder} from "@angular/forms";
 import {LoginDto} from "../../../shared/login.dto";
 import {Hairstyle} from "../../../shared/hairstyle.model";
 import {HairstyleService} from "../../../shared/hairstyle.service";
+import {AuthService} from "../../../shared/auth.service";
+import {Employee} from "../../../shared/employee.model";
+import {EmployeeService} from "../../../shared/employee.service";
 
 
 @Component({
@@ -22,6 +25,7 @@ export class EmployeeHomeComponent implements OnInit {
   $customers: Customer[] | undefined;
   $appointments: Appointment[] | undefined;
   $hairstyles: Hairstyle[] | undefined;
+  $loggedEmployee: Employee | undefined;
 
 
   showing: string | null | undefined;
@@ -39,12 +43,19 @@ export class EmployeeHomeComponent implements OnInit {
   });
 
   constructor(private _appointmentService: AppointmentService, private _customerService: CustomerService, private _hairstyleService: HairstyleService,
-              private _fb: FormBuilder) { }
+              private _auth: AuthService, private _employeeService: EmployeeService, private _fb: FormBuilder) { }
 
   ngOnInit(): void {
     this._appointmentService.getAppointments().subscribe(a => this.$appointments = a as Appointment[]);
     this._customerService.getCustomers().subscribe(a => this.$customers = a as Customer[]);
     this._hairstyleService.getHairstyles().subscribe(h=> this.$hairstyles = h as Hairstyle[])
+    let employeeId = this._auth.getEmployeeID();
+    console.log(employeeId)
+    if(employeeId!= 0)
+    {
+      this._employeeService.getEmployeeById(employeeId).subscribe(e=> this.$loggedEmployee = e);
+    }
+
 
     this.showing = null;
   }
@@ -55,6 +66,14 @@ export class EmployeeHomeComponent implements OnInit {
   showingAppointments() {
 
     this.showing = this.appointments;
+  }
+
+  getLoggedEmployeeName(){
+    let str = "Error";
+    if(this.$loggedEmployee?.name){
+      str = this.$loggedEmployee.name;
+    }
+    return str
   }
 
 
