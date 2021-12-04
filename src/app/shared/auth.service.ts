@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {LoginDto} from "./login.dto";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {TokenDto} from "./token.dto";
-import {environment} from "../../../environments/environment";
+import {environment} from "../../environments/environment";
 import {take, tap} from "rxjs/operators";
 
 

@@ -1,10 +1,28 @@
 
 
 <li><a routerLink="../">Logout</a></li>
-<li><a>Customer &dtrif;</a>
+<li><a>Customers &dtrif;</a>
   <ul class="dropdown">
-    <li><a (click)="allCustomers()" >All Customers</a></li>
+    <li><a (click)="click_allCustomers()" >All Customers</a></li>
+    <li><a (click)="click_AddCustomer()" >Add Customer</a></li>
   </ul>
+
+  <form *ngIf="showing == addCustomer"[formGroup]="customerForm" (ngSubmit)="CreateCustomer()">
+
+    <label for="name">Name: </label>
+    <input id="name" type="text" formControlName="name">
+
+    <label for="phone">Phone: </label>
+    <input id="phone" type="text" formControlName="phoneNumber">
+
+    <label for="email">Email: </label>
+    <input id="email" type="text" formControlName="email">
+
+    <button type="submit">Submit</button>
+
+  </form>
+
+
 
 <li><a>Appointments&dtrif;</a>
   <ul class="dropdown">
@@ -12,20 +30,33 @@
   </ul>
 </li>
 
-  <div *ngIf="showing == appointment">
-    <ul *ngIf="$appointments | async as appointments">
-      <li *ngFor="let appointment of appointments">
+  <div *ngIf="showing == appointments">
+    <ul *ngIf="$appointments">
+      <li *ngFor="let appointment of $appointments">
 
-        #{{appointment.id}} - Customer: {{setCustomerId(appointment.customerId)}} Date: {{appointment.appointmentTime}}
+        #{{appointment.id}} - Customer: {{getCustomerNameById(appointment.customerId)}} Date: {{appointment.appointmentTime}}
       </li>
     </ul>
   </div>
 
   <div *ngIf="showing == customers">
-    <ul *ngIf="$customers | async as customers">
-      <li *ngFor="let customer of customers">
+    <ul *ngIf="$customers">
+      <li *ngFor="let customer of $customers">
         #{{customer.id}} - Name: {{customer.name}} - PhoneNumber: {{customer.phoneNumber}} - Email: {{customer.email}}
       </li>
     </ul>
   </div>
 
+
+<li><a>Hairstyles &dtrif;</a>
+  <ul class="dropdown">
+    <li><a (click)="click_allHairstyles()" >All Hairstyles</a></li>
+  </ul>
+
+  <div *ngIf="showing == hairstyles">
+    <ul *ngIf="$hairstyles">
+      <li *ngFor="let hairstyle of $hairstyles">
+        #{{hairstyle.id}} - Name: {{hairstyle.name}} - Time: {{hairstyle.estimatedTime}}
+      </li>
+    </ul>
+  </div>

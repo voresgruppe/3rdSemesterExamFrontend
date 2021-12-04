@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {AdminService} from "../../shared/admin.service";
+import {AdminService} from "../../../shared/admin.service";
 import {FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
-import {AuthService} from "../../shared/auth.service";
-import {LoginDto} from "../../shared/login.dto";
+import {AuthService} from "../../../shared/auth.service";
+import {LoginDto} from "../../../shared/login.dto";
 import {take} from "rxjs/operators";
 
 @Component({

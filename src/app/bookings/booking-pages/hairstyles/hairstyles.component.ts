@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Hairstyle } from '../../shared/hairstyle.model';
-import { HairstyleService } from '../../shared/hairstyle.service';
+import { Hairstyle } from '../../../shared/hairstyle.model';
+import { HairstyleService } from '../../../shared/hairstyle.service';
 
 @Component({
   selector: 'app-hairstyles',

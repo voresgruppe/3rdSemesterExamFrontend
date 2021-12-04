@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {async, Observable} from "rxjs";
-import {AppointmentService} from "../../shared/appointment.service";
-import {Appointment} from "../../shared/appointment.model";
-import {CustomerService} from "../../shared/customer.service";
-import {Customer} from "../../shared/customer.model";
+import {AppointmentService} from "../../../shared/appointment.service";
+import {Appointment} from "../../../shared/appointment.model";
+import {CustomerService} from "../../../shared/customer.service";
+import {Customer} from "../../../shared/customer.model";
 import {take} from "rxjs/operators";
+import {FormBuilder} from "@angular/forms";
+import {LoginDto} from "../../../shared/login.dto";
+import {Hairstyle} from "../../../shared/hairstyle.model";
+import {HairstyleService} from "../../../shared/hairstyle.service";
 
 
 @Component({
@@ -15,47 +19,83 @@ import {take} from "rxjs/operators";
 
 export class EmployeeHomeComponent implements OnInit {
 
-  $customers: Observable<Customer[]> | undefined;
-  $appointments: Observable<Appointment[]> | undefined;
-  customer: Customer | undefined;
-  customerId: number = 1;
+  $customers: Customer[] | undefined;
+  $appointments: Appointment[] | undefined;
+  $hairstyles: Hairstyle[] | undefined;
+
 
   showing: string | null | undefined;
-  appointment= "appointment";
+  appointments= "appointments";
   customers = "customers";
+  hairstyles = "hairstyles";
+  addCustomer = "addCustomer";
 
-  constructor(private _appointmentService: AppointmentService, private _customerService: CustomerService) { }
+
+
+  customerForm = this._fb.group({
+    name: [''],
+    phoneNumber: [''],
+    email: [''],
+  });
+
+  constructor(private _appointmentService: AppointmentService, private _customerService: CustomerService, private _hairstyleService: HairstyleService,
+              private _fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.$appointments = this._appointmentService.getAppointments();
-    this.$customers =this._customerService.getCustomers();
+    this._appointmentService.getAppointments().subscribe(a => this.$appointments = a as Appointment[]);
+    this._customerService.getCustomers().subscribe(a => this.$customers = a as Customer[]);
+    this._hairstyleService.getHairstyles().subscribe(h=> this.$hairstyles = h as Hairstyle[])
+
     this.showing = null;
-    this.getCustomerById()
   }
-  allCustomers() {
+  click_allCustomers() {
     this.showing = this.customers;
   }
 
   showingAppointments() {
 
-    this.showing = this.appointment;
+    this.showing = this.appointments;
   }
 
-  getCustomerById(){
-    this._customerService.getCustomerById(this.customerId).subscribe(c => this.customer = c);
 
+  //TODO hent via API
+  getCustomerNameById(customerId: number){
 
-    return this.customer;
-  }
+    let str = "Error";
 
-  setCustomerId(id: number){
-    this.customerId = id;
-    let name:  string = " ";
-
-    if(this.customer!= null){
-      name = this.customer.name
+    if(this.$customers)
+    for(let customer of this.$customers){
+      if(customer.id == customerId){
+        str = customer.name
+      }
     }
-    return name;
+
+    //forsøg på api, men den laver uendelige fejl
+    /*
+    let cus = this._customerService.getCustomerById(customerId)
+    if(cus){
+      cus.subscribe(c=> str = c.name)
+    }
+     */
+
+    return str
   }
 
+  click_AddCustomer() {
+      this.showing = this.addCustomer
+  }
+
+
+  //todo tilføjer først id, når man reloader siden
+  CreateCustomer() {
+    const customer = this.customerForm.value as Customer;
+    if(customer){
+      console.log(customer)
+    }
+    console.log(this._customerService.createCustomer(customer).subscribe(c => this.$customers?.push(customer)));
+  }
+
+  click_allHairstyles() {
+    this.showing = this.hairstyles;
+  }
 }
