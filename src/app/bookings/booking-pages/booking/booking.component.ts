@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {CustomerService} from "../../../shared/customer.service";
 import {Customer} from "../../../shared/customer.model";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-booking',
@@ -18,6 +19,12 @@ $loggedCustomer: Customer | undefined;
     hairstyle: [''],
     date: [''],
     employee: [''],
+  });
+
+  customerForm = this._fb.group({
+    name: [''],
+    phoneNumber: [''],
+    email: [''],
   });
 
   constructor(private _fb: FormBuilder, private _customerService: CustomerService) { }
@@ -39,5 +46,17 @@ $loggedCustomer: Customer | undefined;
     }
 
     return this.$loggedCustomer != undefined;
+  }
+
+  CreateCustomer() {
+    const customer = this.customerForm.value as Customer;
+    let createdCustomer: Customer | undefined;
+    this._customerService.createCustomer(customer).pipe(
+      tap(c=>{
+        if(c){
+          createdCustomer=c;
+          (<HTMLInputElement>document.getElementById("phoneNumber")).value =c.phoneNumber;
+        }})).subscribe(c=> this.$customers?.push(c));
+
   }
 }

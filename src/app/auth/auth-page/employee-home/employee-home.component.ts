@@ -128,13 +128,9 @@ export class EmployeeHomeComponent implements OnInit {
   }
 
 
-  //todo tilføjer først id, når man reloader siden
   CreateCustomer() {
     const customer = this.customerForm.value as Customer;
-    if(customer){
-      console.log(customer)
-    }
-    console.log(this._customerService.createCustomer(customer).subscribe(c => this.$customers?.push(customer)));
+    (this._customerService.createCustomer(customer).subscribe(c => this.$customers?.push(c)));
   }
 
   click_allHairstyles() {

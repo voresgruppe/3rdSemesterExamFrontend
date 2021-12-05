@@ -7,6 +7,22 @@
 <div *ngIf="!checkPhone()">
   we need to add you to our system
 
+  <form [formGroup]="customerForm" (ngSubmit)="CreateCustomer()">
+
+    <label for="name">Name: </label>
+    <input id="name" type="text" formControlName="name">
+    <br>
+
+    <label for="phone">Phone: </label>
+    <input id="phone" type="text" formControlName="phoneNumber">
+    <br>
+    <label for="email">Email: </label>
+    <input id="email" type="text" formControlName="email">
+    <br>
+    <button type="submit">Submit</button>
+
+  </form>
+
 </div>
 
 <div *ngIf="checkPhone()">

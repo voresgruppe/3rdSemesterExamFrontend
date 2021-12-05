@@ -28,7 +28,6 @@ export class AuthService {
             localStorage.setItem(jwtToken, token.jwt)
             if(token.employeeId){
               localStorage.setItem(employeeId, String(token.employeeId))
-              console.log(this.getEmployeeID() + "employee id")
             }
             this.isLoggedIn$.next(token.jwt);
           }else {
