@@ -32,11 +32,7 @@ $loggedCustomer: Customer | undefined;
     customerId: ['']
   });
 
-  customerForm = this._fb.group({
-    name: [''],
-    phoneNumber: [''],
-    email: [''],
-  });
+  customerForm = this._customerService.getForm();
 
 
   constructor(private _fb: FormBuilder, private _customerService: CustomerService, private _hairstyleService: HairstyleService, private _employeeService: EmployeeService,
@@ -53,7 +49,6 @@ $loggedCustomer: Customer | undefined;
   getPhoneCheckedOnce(){
     return checkPhone_clickedOnce;
   }
-
 
 
   checkPhone() {
@@ -82,30 +77,13 @@ $loggedCustomer: Customer | undefined;
     return this.$loggedCustomer != undefined;
   }
 
-  CreateCustomer() {
-    const customer = this.customerForm.value as Customer;
-    let createdCustomer: Customer | undefined;
-    this._customerService.createCustomer(customer).pipe(
-      tap(c=>{
-        if(c){
-          createdCustomer=c;
-          (<HTMLInputElement>document.getElementById("phoneNumber")).value =c.phoneNumber;
-        }})).subscribe(c=> this.$customers?.push(c));
 
-  }
 
   getLoggedCustomerName(){
     if(this.$loggedCustomer){
       return this.$loggedCustomer.name;
     }
     else return "Error";
-  }
-
-  getLoggedCustomerId(){
-    if(this.$loggedCustomer){
-      return this.$loggedCustomer.id.toString();
-    }
-    else return "0";
   }
 
   CreateAppointment() {
@@ -116,5 +94,10 @@ $loggedCustomer: Customer | undefined;
         if(c){
           createdAppointment=c;
         }})).subscribe();
+  }
+
+  CreateCustomer() {
+    this._customerService.CreateCustomerByForm(this.customerForm);
+
   }
 }
