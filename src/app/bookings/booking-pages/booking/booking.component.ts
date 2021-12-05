@@ -40,6 +40,8 @@ $loggedCustomer: Customer | undefined;
   constructor(private _fb: FormBuilder, private _customerService: CustomerService, private _hairstyleService: HairstyleService, private _employeeService: EmployeeService) { }
 
   ngOnInit(): void {
+    checkPhone_clickedOnce = false;
+
     this._customerService.getCustomers().subscribe(c=> this.$customers = c)
     this._hairstyleService.getHairstyles().subscribe(h=> this.$hairstyles = h)
     this._employeeService.getEmployees().subscribe(e=> this.$employees =e)
