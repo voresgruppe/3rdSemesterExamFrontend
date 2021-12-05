@@ -3,4 +3,5 @@ export interface Appointment {
   customerId: number,
   appointmentTime: string,
   employeeId: number,
+  hairstyleId: number,
 }

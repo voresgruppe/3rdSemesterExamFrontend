@@ -8,6 +8,7 @@ import {HairstyleService} from "../../../shared/hairstyle.service";
 import {EmployeeService} from "../../../shared/employee.service";
 import {Employee} from "../../../shared/employee.model";
 import {Appointment} from "../../../shared/appointment.model";
+import {AppointmentService} from "../../../shared/appointment.service";
 
 
 let checkPhone_clickedOnce = false;
@@ -25,9 +26,10 @@ $loggedCustomer: Customer | undefined;
 
 
   appointmentForm = this._fb.group({
-    hairstyle: [''],
-    date: [''],
-    employee: [''],
+    hairstyleId: [''],
+    appointmentTime: [''],
+    employeeId: [''],
+    customerId: ['']
   });
 
   customerForm = this._fb.group({
@@ -37,7 +39,8 @@ $loggedCustomer: Customer | undefined;
   });
 
 
-  constructor(private _fb: FormBuilder, private _customerService: CustomerService, private _hairstyleService: HairstyleService, private _employeeService: EmployeeService) { }
+  constructor(private _fb: FormBuilder, private _customerService: CustomerService, private _hairstyleService: HairstyleService, private _employeeService: EmployeeService,
+              private _appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
     checkPhone_clickedOnce = false;
@@ -98,8 +101,24 @@ $loggedCustomer: Customer | undefined;
     else return "Error";
   }
 
+  getLoggedCustomerId(){
+    if(this.$loggedCustomer){
+      return this.$loggedCustomer.id.toString();
+    }
+    else return "0";
+  }
+
   CreateAppointment() {
     //Todo
     console.log("not done")
+    const appointment = this.appointmentForm.value as Appointment;
+    console.log(this.getLoggedCustomerId())
+    console.log(appointment);
+    let createdAppointment: Appointment | undefined;
+    this._appointmentService.createAppointment(appointment).pipe(
+      tap(c=>{
+        if(c){
+          createdAppointment=c;
+        }})).subscribe();
   }
 }
