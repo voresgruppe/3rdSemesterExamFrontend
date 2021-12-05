@@ -3,7 +3,14 @@ import {FormBuilder} from "@angular/forms";
 import {CustomerService} from "../../../shared/customer.service";
 import {Customer} from "../../../shared/customer.model";
 import {tap} from "rxjs/operators";
+import {Hairstyle} from "../../../shared/hairstyle.model";
+import {HairstyleService} from "../../../shared/hairstyle.service";
+import {EmployeeService} from "../../../shared/employee.service";
+import {Employee} from "../../../shared/employee.model";
+import {Appointment} from "../../../shared/appointment.model";
 
+
+let checkPhone_clickedOnce = false;
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
@@ -13,6 +20,8 @@ export class BookingComponent implements OnInit {
 
 $customers: Customer[] | undefined;
 $loggedCustomer: Customer | undefined;
+  $hairstyles: Hairstyle[]| undefined;
+  $employees: Employee[] | undefined;
 
 
   appointmentForm = this._fb.group({
@@ -27,24 +36,44 @@ $loggedCustomer: Customer | undefined;
     email: [''],
   });
 
-  constructor(private _fb: FormBuilder, private _customerService: CustomerService) { }
+
+  constructor(private _fb: FormBuilder, private _customerService: CustomerService, private _hairstyleService: HairstyleService, private _employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     this._customerService.getCustomers().subscribe(c=> this.$customers = c)
+    this._hairstyleService.getHairstyles().subscribe(h=> this.$hairstyles = h)
+    this._employeeService.getEmployees().subscribe(e=> this.$employees =e)
   }
+
+  getPhoneCheckedOnce(){
+    return checkPhone_clickedOnce;
+  }
+
 
 
   checkPhone() {
     let phone = (<HTMLInputElement>document.getElementById("phoneNumber")).value;
+    let isCustomerFound = false
 
     if(this.$customers) {
       for (let c of this.$customers) {
         if(c.phoneNumber == phone){
           this.$loggedCustomer = c;
+          isCustomerFound = true;
         }
+
       }
     }
+    if(!isCustomerFound){
+      this.$loggedCustomer = undefined;
+    }
 
+    if(!checkPhone_clickedOnce){
+      checkPhone_clickedOnce = true;
+    }
+  }
+
+  userAvailable(){
     return this.$loggedCustomer != undefined;
   }
 
@@ -58,5 +87,17 @@ $loggedCustomer: Customer | undefined;
           (<HTMLInputElement>document.getElementById("phoneNumber")).value =c.phoneNumber;
         }})).subscribe(c=> this.$customers?.push(c));
 
+  }
+
+  getLoggedCustomerName(){
+    if(this.$loggedCustomer){
+      return this.$loggedCustomer.name;
+    }
+    else return "Error";
+  }
+
+  CreateAppointment() {
+    //Todo
+    console.log("not done")
   }
 }

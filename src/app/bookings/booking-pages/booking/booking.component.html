@@ -4,7 +4,7 @@
 <input type="text" id="phoneNumber">
 <button (click)="checkPhone()">Submit</button>
 
-<div *ngIf="!checkPhone()">
+<div *ngIf="!userAvailable() && getPhoneCheckedOnce()">
   we need to add you to our system
 
   <form [formGroup]="customerForm" (ngSubmit)="CreateCustomer()">
@@ -25,8 +25,31 @@
 
 </div>
 
-<div *ngIf="checkPhone()">
-  you are already in our system
+
+<div *ngIf="userAvailable() && getPhoneCheckedOnce()">
+  you are already in our system, welcome back {{getLoggedCustomerName()}}
+
+  <form [formGroup]="appointmentForm" (ngSubmit)="CreateAppointment()">
+
+    <label for="hairstyle">choose a hairstyle </label>
+    <select id="hairstyle" formControlName="hairstyle" *ngIf="$hairstyles" >
+      <option *ngFor="let hairstyle of $hairstyles" value="{{hairstyle.name}}"> {{hairstyle.name}} </option>
+    </select>
+    <br>
+
+    <label for="date">Date: </label>
+    <input id="date" type="date" formControlName="date">
+    <br>
+    <label for="employee">Employee: </label>
+    <select id="employee" formControlName="employee" *ngIf="$employees">
+      <option *ngFor="let employee of $employees" value="{{employee.name}}"> {{employee.name}} </option>
+    </select>
+    <br>
+
+    <label style="color: red">Wont do anything </label>
+    <button type="submit" disabled>Submit</button>
+
+  </form>
 
 </div>
 
