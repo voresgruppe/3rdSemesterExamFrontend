@@ -41,7 +41,11 @@ export class EmployeeHomeComponent implements OnInit {
 
 
 
-  customerForm = this._customerService.getForm();
+  customerForm = this._fb.group({
+    name: [''],
+    phoneNumber: [''],
+    email: [''],
+  });
 
   constructor(private _appointmentService: AppointmentService, private _customerService: CustomerService, private _hairstyleService: HairstyleService,
               private _auth: AuthService, private _employeeService: EmployeeService, private _fb: FormBuilder) { }
@@ -125,7 +129,8 @@ export class EmployeeHomeComponent implements OnInit {
 
 
   CreateCustomer() {
-    this._customerService.CreateCustomerByForm(this.customerForm)
+    const customer = this.customerForm.value as Customer;
+    (this._customerService.createCustomer(customer).subscribe(c => this.$customers?.push(c)));
   }
 
   click_allHairstyles() {
