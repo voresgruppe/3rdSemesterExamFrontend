@@ -1,7 +1,7 @@
 <p>booking works!</p>
 
 <label>Type in your phone number</label>
-<input type="text" id="phoneNumber">
+<input type="text" id="phoneNumber" [formControl]="syncPhoneNr" [value]="syncPhoneNr.value">
 <button (click)="checkPhone()">Submit</button>
 
 <div *ngIf="!userAvailable() && getPhoneCheckedOnce()">
@@ -14,7 +14,7 @@
     <br>
 
     <label for="phone">Phone: </label>
-    <input id="phone" type="text" formControlName="phoneNumber">
+    <input id="phone" type="text" formControlName="phoneNumber" [formControl]="syncPhoneNr" [value]="syncPhoneNr.value">
     <br>
     <label for="email">Email: </label>
     <input id="email" type="text" formControlName="email">

@@ -9,6 +9,7 @@ import {EmployeeService} from "../../../shared/employee.service";
 import {Employee} from "../../../shared/employee.model";
 import {Appointment} from "../../../shared/appointment.model";
 import {AppointmentService} from "../../../shared/appointment.service";
+import { FormControl } from '@angular/forms';
 
 
 let checkPhone_clickedOnce = false;
@@ -37,6 +38,8 @@ $loggedCustomer: Customer | undefined;
     phoneNumber: [''],
     email: [''],
   });
+
+  syncPhoneNr = new FormControl('')
 
 
   constructor(private _fb: FormBuilder, private _customerService: CustomerService, private _hairstyleService: HairstyleService, private _employeeService: EmployeeService,
