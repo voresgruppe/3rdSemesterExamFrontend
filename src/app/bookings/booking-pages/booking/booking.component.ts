@@ -57,7 +57,9 @@ $loggedCustomer: Customer | undefined;
 
 
   checkPhone() {
-    let phone = (<HTMLInputElement>document.getElementById("phoneNumber")).value.toString().replace(/\d{2}(?=.)/g, '$& ');
+    let phone = (<HTMLInputElement>document.getElementById("phoneNumber")).value.toString()
+      .replace(/\s/g, "")               //ja, det set fucked ud men det virker okay
+      .replace(/\d{2}(?=.)/g, '$& ');
     let isCustomerFound = false
 
     if(this.$customers) {
