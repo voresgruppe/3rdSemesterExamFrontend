@@ -4,4 +4,5 @@ export interface Hairstyle {
     estimatedTime: Number,
     description: string,
     price: number,
+    possibleStyles: number[],
 }

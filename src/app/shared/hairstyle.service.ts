@@ -15,5 +15,12 @@ export class HairstyleService {
     return this._http.get<Hairstyle[]>(`${environment.api}/HairStyle`)
   }
 
-  getHairstyle(id: Number){}
+  getHairstyle(id: Number){
+    return this._http.get<Hairstyle>(`${environment.api}/HairStyle/${id}`)
+  }
+
+  getHairstyleFromListOfId(possibleStyles: number[]){
+    return this._http.post<Hairstyle[]>(`${environment.api}/HairStyle/GetListOfHairstyles_FromListOfId`, possibleStyles)
+  }
+
 }
