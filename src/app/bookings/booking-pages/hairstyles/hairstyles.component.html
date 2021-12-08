@@ -1,4 +1,5 @@
 <h2 *ngIf="$hairstyles | async as hairstyles; else errorDB">Choose your current hairstyle</h2>
+<p>af en eller anden grund skal du trykke choose 2 gange</p>
 <ul *ngIf="$hairstyles | async as hairstyles">
     <li id="{{hairstyle.id}}" *ngFor="let hairstyle of hairstyles">
       <a  (click)="ChooseHairstyle(hairstyle.id)"> Choose</a>
