@@ -24,8 +24,13 @@ export class HairstyleService {
     return this._http.post<Hairstyle[]>(`${environment.api}/HairStyle/GetListOfHairstyles_FromListOfId`, possibleStyles)
   }
 
-  createHairstyle(hairstyle: Hairstyle): Observable<Hairstyle>{
+
+  createHairstyle(hairstyle: Hairstyle): Observable<Hairstyle> {
     return this._http.post<Hairstyle>(`${environment.api}/Hairstyle/CreateHairstyle`, hairstyle)
+  }
+
+  getHairStyles_StarterStyles() {
+    return this._http.get<Hairstyle[]>(`${environment.api}/HairStyle/GetListOfHairstyles_IsStarterStyle`)
   }
 
 }

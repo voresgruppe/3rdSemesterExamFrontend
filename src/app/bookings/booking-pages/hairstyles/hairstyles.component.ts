@@ -17,18 +17,25 @@ export class HairstylesComponent implements OnInit {
 
   $hairstyles: Observable<Hairstyle[]> | undefined
 
-  constructor(private _service: HairstyleService) { }
+  $starterStyles: Hairstyle[] | undefined
+
+  constructor(private _hairstyleService: HairstyleService) { }
 
   ngOnInit(): void {
-    this.$hairstyles = this._service.getHairstyles()
+    this.$hairstyles = this._hairstyleService.getHairstyles()
+    this._hairstyleService.getHairStyles_StarterStyles().subscribe(h=> this.$starterStyles= h as Hairstyle[])
   }
 
 
-  //TODO af en eller anden grund skal man trykke 2 gange på knappen
-  ChooseHairstyle(id: Number) {
-    this._service.getHairstyle(id).subscribe(h=>this.$chosenHairstyle =h)
-    if(this.$chosenHairstyle){
-      this._service.getHairstyleFromListOfId(this.$chosenHairstyle.possibleStyles).subscribe(h=> this.$possibleHairstyles = h);
+
+  async ChooseHairstyle(id: Number) {
+    this._hairstyleService.getHairstyle(id).subscribe(h => this.$chosenHairstyle = h)
+
+    //sørger for man ikke skal trykke "choose" 2 gange
+    await new Promise(f=> setTimeout(f, 100))
+
+    if (this.$chosenHairstyle) {
+      this._hairstyleService.getHairstyleFromListOfId(this.$chosenHairstyle.possibleStyles).subscribe(h => this.$possibleHairstyles = h);
     }
   }
 }
