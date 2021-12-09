@@ -5,4 +5,5 @@ export interface Hairstyle {
     description: string,
     price: number,
     possibleStyles: number[],
+    isStarterStyle: Boolean,
 }
