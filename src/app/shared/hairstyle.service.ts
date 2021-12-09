@@ -23,4 +23,8 @@ export class HairstyleService {
     return this._http.post<Hairstyle[]>(`${environment.api}/HairStyle/GetListOfHairstyles_FromListOfId`, possibleStyles)
   }
 
+  getHairStyles_StarterStyles() {
+    return this._http.get<Hairstyle[]>(`${environment.api}/HairStyle/GetListOfHairstyles_IsStarterStyle`)
+  }
+
 }
