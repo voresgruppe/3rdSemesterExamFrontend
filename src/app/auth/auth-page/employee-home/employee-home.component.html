@@ -36,6 +36,7 @@
     <li><a  class="card">Hairstyles &dtrif;</a>
       <ul class="dropdown">
         <li><a (click)="click_allHairstyles()">All Hairstyles</a></li>
+        <li><a (click)="click_AddHairstyle()">Add Hairstyle</a></li>
       </ul>
     </li>
   </ul>
@@ -95,5 +96,29 @@
       </li>
     </ul>
   </div>
+
+  <form *ngIf="showing == addHairstyle" [formGroup]="hairstyleForm" (ngSubmit)="CreateHairstyle()">
+
+    <label for="name">Name: </label>
+    <input id="name" type="text" formControlName="name">
+    <br>
+    <label for="estimatedTime">Estimated Time: </label>
+    <input id="estimatedTime" type="number" formControlName="estimatedTime">
+    <br>
+    <label for="description">Description: </label>
+    <input id="description" type="text" formControlName="description">
+    <br>
+    <label for="price">Price: </label>
+    <input id="price" type="number" formControlName="price">
+    <br>
+    <label for="possibleStyles">Possible Styles: </label>
+    <input id="possibleStyles" type="text" formControlName="possibleStyles">
+    <br>
+    <label for="isStarterStyle">Is Starter Style: </label>
+    <input id="isStarterStyle" type="checkbox" formControlName="isStarterStyle">
+    <br>
+    <button type="submit">Submit</button>
+
+  </form>
 
 </div>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Hairstyle } from './hairstyle.model';
+import {Customer} from "./customer.model";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,10 @@ export class HairstyleService {
 
   getHairstyleFromListOfId(possibleStyles: number[]){
     return this._http.post<Hairstyle[]>(`${environment.api}/HairStyle/GetListOfHairstyles_FromListOfId`, possibleStyles)
+  }
+
+  createHairstyle(hairstyle: Hairstyle): Observable<Hairstyle>{
+    return this._http.post<Hairstyle>(`${environment.api}/Hairstyle/CreateHairstyle`, hairstyle)
   }
 
 }

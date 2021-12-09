@@ -38,8 +38,17 @@ export class EmployeeHomeComponent implements OnInit {
   hairstyles = "hairstyles";
   addCustomer = "addCustomer";
   myAppointments = "myAppointments";
+  addHairstyle = "addHairstyle";
 
 
+  hairstyleForm = this._fb.group({
+    name: [''],
+    estimatedTime: [''],
+    description: [''],
+    price:[''],
+    possibleStyles:[''],
+    isStarterStyle:['']
+  });
 
   customerForm = this._fb.group({
     name: [''],
@@ -139,5 +148,14 @@ export class EmployeeHomeComponent implements OnInit {
 
   showingMyAppointments() {
     this.showing = this.myAppointments;
+  }
+
+  CreateHairstyle(){
+    const hairstyle = this.hairstyleForm.value as Hairstyle;
+    (this._hairstyleService.createHairstyle(hairstyle).subscribe(h => this.$hairstyles?.push(h)));
+  }
+
+  click_AddHairstyle() {
+    this.showing = this.addHairstyle;
   }
 }
