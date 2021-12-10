@@ -1,9 +1,9 @@
 export interface Hairstyle {
-    id: Number,
+    id: number,
     name: string,
-    estimatedTime: Number,
+    estimatedTime: number,
     description: string,
     price: number,
     possibleStyles: number[],
-    isStarterStyle: Boolean,
+    isStarterHairstyle: Boolean
 }
