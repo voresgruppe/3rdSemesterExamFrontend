@@ -27,8 +27,9 @@ export class EmployeeHomeComponent implements OnInit {
   $appointmentsByLoggedEmployee: Appointment[] | undefined;
   $hairstyles: Hairstyle[] | undefined;
   $employees: Employee[] | undefined;
-
+  $chosenHairstyle: Hairstyle | undefined;
   $loggedEmployee: Employee | undefined;
+  $chosenPossibleHairstyle: Hairstyle | undefined;
 
 
 
@@ -39,6 +40,8 @@ export class EmployeeHomeComponent implements OnInit {
   addCustomer = "addCustomer";
   myAppointments = "myAppointments";
   addHairstyle = "addHairstyle";
+  manageHairstyle = "manageHairstyle";
+
 
 
   hairstyleForm = this._fb.group({
@@ -46,8 +49,8 @@ export class EmployeeHomeComponent implements OnInit {
     estimatedTime: [''],
     description: [''],
     price:[''],
-    possibleStyles:[''],
-    isStarterStyle:['']
+    /*possibleStyles:[''],*/
+    isStarterHairstyle:['']
   });
 
   customerForm = this._fb.group({
@@ -151,11 +154,46 @@ export class EmployeeHomeComponent implements OnInit {
 
   CreateHairstyle(){
     const hairstyle = this.hairstyleForm.value as Hairstyle;
-    console.log(hairstyle + '');
+    console.log(hairstyle);
     (this._hairstyleService.createHairstyle(hairstyle).subscribe(h => this.$hairstyles?.push(h)));
   }
 
   click_AddHairstyle() {
     this.showing = this.addHairstyle;
+  }
+
+  click_manageHairstyles() {
+    this.showing = this.manageHairstyle;
+  }
+
+  async chooseHairstyle() {
+    const e = document.getElementById('hairstyleId') as HTMLSelectElement;
+    const id = e.options[e.selectedIndex].value;
+
+    this._hairstyleService.getHairstyle(+id).subscribe(h => this.$chosenHairstyle = h)
+
+    await new Promise(f => setTimeout(f, 300))
+
+  }
+
+  async choosePossibleHairstyle() {
+    const e = document.getElementById('possibleHairstyleId') as HTMLSelectElement;
+    const id = e.options[e.selectedIndex].value;
+
+    this._hairstyleService.getHairstyle(+id).subscribe(h => this.$chosenPossibleHairstyle = h)
+
+    await new Promise(f => setTimeout(f, 300))
+  }
+
+  addToPossibleStyle($chosenPossibleHairstyle: Hairstyle | undefined) {
+    if ($chosenPossibleHairstyle){
+      let hairstyle = $chosenPossibleHairstyle
+      this.$chosenHairstyle?.possibleStyles.push(hairstyle.id);
+      console.log(this.$chosenHairstyle);
+    }
+    if(this.$chosenHairstyle){
+      console.log("hej");
+      this._hairstyleService.updateHairstyle(this.$chosenHairstyle.id, this.$chosenHairstyle).subscribe(h=>this.$chosenHairstyle = h);
+    }
   }
 }

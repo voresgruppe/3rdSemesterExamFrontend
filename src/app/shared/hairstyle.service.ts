@@ -33,4 +33,8 @@ export class HairstyleService {
     return this._http.get<Hairstyle[]>(`${environment.api}/HairStyle/GetListOfHairstyles_IsStarterStyle`)
   }
 
+  updateHairstyle(id: number, hairstyle: Hairstyle){
+    return this._http.put<Hairstyle>(`${environment.api}/Hairstyle/Update?id=${id}`, hairstyle);
+  }
+
 }

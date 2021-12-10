@@ -36,6 +36,7 @@
     <li><a  class="card">Hairstyles &dtrif;</a>
       <ul class="dropdown">
         <li><a (click)="click_allHairstyles()">All Hairstyles</a></li>
+        <li><a (click)="click_manageHairstyles()">Manage Hairstyles</a></li>
         <li><a (click)="click_AddHairstyle()">Add Hairstyle</a></li>
       </ul>
     </li>
@@ -99,8 +100,8 @@
 
   <form *ngIf="showing == addHairstyle" [formGroup]="hairstyleForm" (ngSubmit)="CreateHairstyle()">
 
-    <label for="name">Name: </label>
-    <input id="name" type="text" formControlName="name">
+    <label for="hairstuleName">Name: </label>
+    <input id="hairstuleName" type="text" formControlName="name">
     <br>
     <label for="estimatedTime">Estimated Time: </label>
     <input id="estimatedTime" type="number" formControlName="estimatedTime">
@@ -111,14 +112,35 @@
     <label for="price">Price: </label>
     <input id="price" type="number" formControlName="price">
     <br>
-    <label for="possibleStyles">Possible Styles: </label>
-    <input id="possibleStyles" type="text" formControlName="possibleStyles">
-    <br>
-    <label for="isStarterStyle">Is Starter Style: </label>
-    <input id="isStarterStyle" type="checkbox" formControlName="isStarterStyle">
+    <!--<label for="possibleStyles">Possible Styles: </label>
+    <input list="possibleStyles" formControlName="possibleStyles" >
+
+    <datalist id="possibleStyles">
+      <option value="5">
+      <option value="7">
+    </datalist>
+    <br>-->
+    <label for="isStarterHairstyle">Is Starter Style: </label>
+    <input id="isStarterHairstyle" type="checkbox" formControlName="isStarterHairstyle">
     <br>
     <button type="submit">Submit</button>
 
   </form>
+
+  <div *ngIf="showing == manageHairstyle">
+    <label>manage</label>
+    <br>
+    <label for="hairstyleId">Manage this hairstyle: </label>
+    <select id="hairstyleId" *ngIf="$hairstyles" (change)="chooseHairstyle()">
+      <option *ngFor="let hairstyle of $hairstyles" value="{{hairstyle.id}}"> {{hairstyle.name}} </option>
+    </select>
+    <br>
+    <label>Add this hairstyle to possible styles: </label>
+    <select id="possibleHairstyleId" *ngIf="$hairstyles" (change)="choosePossibleHairstyle()">
+      <option *ngFor="let hairstyle of $hairstyles" value="{{hairstyle.id}}"> {{hairstyle.name}} </option>
+    </select>
+    <br>
+    <button (click) = "addToPossibleStyle($chosenPossibleHairstyle)" type="submit">Submit</button>
+  </div>
 
 </div>
