@@ -121,8 +121,6 @@ $loggedCustomer: Customer | undefined;
 
   CreateAppointment() {
     const appointment = this.appointmentForm.value as Appointment;
-
-    console.log(appointment)
     let createdAppointment: Appointment | undefined;
     this._appointmentService.createAppointment(appointment).pipe(
       tap(c=>{
