@@ -66,7 +66,6 @@ export class EmployeeHomeComponent implements OnInit {
     this._hairstyleService.getHairstyles().subscribe(h=> this.$hairstyles = h as Hairstyle[])
     this._employeeService.getEmployees().subscribe(e=> this.$employees= e as Employee[])
     let employeeId = this._auth.getEmployeeID();
-    console.log(employeeId)
     if(employeeId!= 0)
     {
       this._employeeService.getEmployeeById(employeeId).subscribe(e=> this.$loggedEmployee = e);
