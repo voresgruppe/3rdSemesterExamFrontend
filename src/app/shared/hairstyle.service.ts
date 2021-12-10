@@ -26,7 +26,7 @@ export class HairstyleService {
 
 
   createHairstyle(hairstyle: Hairstyle): Observable<Hairstyle> {
-    return this._http.post<Hairstyle>(`${environment.api}/Hairstyle/CreateHairstyle`, hairstyle)
+    return this._http.post<Hairstyle>(`${environment.api}/Hairstyle/Create`, hairstyle)
   }
 
   getHairStyles_StarterStyles() {

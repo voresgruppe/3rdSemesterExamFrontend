@@ -152,6 +152,7 @@ export class EmployeeHomeComponent implements OnInit {
 
   CreateHairstyle(){
     const hairstyle = this.hairstyleForm.value as Hairstyle;
+    console.log(hairstyle + '');
     (this._hairstyleService.createHairstyle(hairstyle).subscribe(h => this.$hairstyles?.push(h)));
   }
 
