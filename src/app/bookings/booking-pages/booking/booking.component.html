@@ -31,9 +31,15 @@
 
   <form [formGroup]="appointmentForm" (ngSubmit)="CreateAppointment()">
 
-    <label for="hairstyle">choose a hairstyle </label>
-    <select id="hairstyle" formControlName="hairstyleId" *ngIf="$hairstyles" >
-      <option *ngFor="let hairstyle of $hairstyles" value="{{hairstyle.id}}"> {{hairstyle.name}} </option>
+    <label for="hairstyleStarter">choose a your current hairstyle </label>
+    <select id="hairstyleStarter" formControlName="hairstyleStarterId" *ngIf="$hairstyles" (change)="chooseStarterStyle()">
+      <option *ngFor="let hairstyle of $starterStyles" value="{{hairstyle.id}}" > {{hairstyle.name}} </option>
+    </select>
+    <br>
+
+    <label for="hairstyleEnd">choose a your desired hairstyle </label>
+    <select id="hairstyleEnd" formControlName="hairstyleEndId" >
+      <option *ngFor="let hairstyle of $possibleHairstyles" value="{{hairstyle.id}}" > {{hairstyle.name}} </option>
     </select>
     <br>
 
@@ -53,11 +59,10 @@
       <option *ngFor="let employee of $employees" value="{{employee.id}}"> {{employee.name}} </option>
     </select>
     <br>
-
-    <label style="color: red">Wont do anything </label>
     <button type="submit" >Submit</button>
 
   </form>
+
 
 </div>
 

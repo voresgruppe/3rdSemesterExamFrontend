@@ -24,10 +24,14 @@ $customers: Customer[] | undefined;
 $loggedCustomer: Customer | undefined;
   $hairstyles: Hairstyle[]| undefined;
   $employees: Employee[] | undefined;
+  $starterStyles: Hairstyle[] | undefined;
+  $possibleHairstyles: Hairstyle[] | undefined;
+  $chosenHairstyle: Hairstyle | undefined;
 
 
   appointmentForm = this._fb.group({
-    hairstyleId: [''],
+    hairstyleStarterId: [''],
+    hairstyleEndId: [''],
     appointmentTime: [''],
     employeeId: [''],
     customerId: ['']
@@ -51,6 +55,8 @@ $loggedCustomer: Customer | undefined;
     this._customerService.getCustomers().subscribe(c=> this.$customers = c)
     this._hairstyleService.getHairstyles().subscribe(h=> this.$hairstyles = h)
     this._employeeService.getEmployees().subscribe(e=> this.$employees =e)
+    this._hairstyleService.getHairStyles_StarterStyles().subscribe(h=> this.$starterStyles= h as Hairstyle[])
+
   }
 
   getPhoneCheckedOnce(){
@@ -115,11 +121,28 @@ $loggedCustomer: Customer | undefined;
 
   CreateAppointment() {
     const appointment = this.appointmentForm.value as Appointment;
+
+    console.log(appointment)
     let createdAppointment: Appointment | undefined;
     this._appointmentService.createAppointment(appointment).pipe(
       tap(c=>{
         if(c){
           createdAppointment=c;
         }})).subscribe();
+  }
+
+  async chooseStarterStyle() {
+
+    const e = document.getElementById('hairstyleStarter') as HTMLSelectElement;
+    const id = e.options[e.selectedIndex].value;
+
+
+    this._hairstyleService.getHairstyle(+id).subscribe(h => this.$chosenHairstyle = h)
+
+    await new Promise(f => setTimeout(f, 300))
+
+    if (this.$chosenHairstyle) {
+      this._hairstyleService.getHairstyleFromListOfId(this.$chosenHairstyle.possibleStyles).subscribe(h => this.$possibleHairstyles = h);
+    }
   }
 }
