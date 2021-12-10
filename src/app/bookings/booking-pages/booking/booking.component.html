@@ -5,7 +5,7 @@
 <button (click)="checkPhone()">Submit</button>
 
 <div *ngIf="!userAvailable() && getPhoneCheckedOnce()" class="newUser">
-  Insert your details
+  <p>Insert your details</p>
 
   <form [formGroup]="customerForm" (ngSubmit)="CreateCustomer()">
 
