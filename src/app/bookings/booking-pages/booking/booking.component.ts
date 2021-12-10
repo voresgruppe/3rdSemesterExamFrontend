@@ -16,7 +16,7 @@ let checkPhone_clickedOnce = false;
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
-  styleUrls: ['./booking.component.css']
+  styleUrls: ['./booking.component.scss']
 })
 export class BookingComponent implements OnInit {
 

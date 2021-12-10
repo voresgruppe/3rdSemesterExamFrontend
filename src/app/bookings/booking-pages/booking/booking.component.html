@@ -4,7 +4,7 @@
 <input type="text" id="phoneNumber" [formControl]="syncPhoneNr" [value]="syncPhoneNr.value">
 <button (click)="checkPhone()">Submit</button>
 
-<div *ngIf="!userAvailable() && getPhoneCheckedOnce()">
+<div *ngIf="!userAvailable() && getPhoneCheckedOnce()" class="newUser">
   we need to add you to our system
 
   <form [formGroup]="customerForm" (ngSubmit)="CreateCustomer()">
@@ -26,7 +26,7 @@
 </div>
 
 
-<div *ngIf="userAvailable() && getPhoneCheckedOnce()">
+<div *ngIf="userAvailable() && getPhoneCheckedOnce()" class="existingUser">
   you are already in our system, welcome back {{getLoggedCustomerName()}}
 
   <form [formGroup]="appointmentForm" (ngSubmit)="CreateAppointment()">
@@ -65,17 +65,3 @@
 
 
 </div>
-
-<br><br><br>
-
-<h3>Stuff needed:</h3>
-<ul>
-    <li>Calendar</li>
-    <li>Selectable calendar field
-        <ul>
-            <li>reveals a field in which user can enter detail</li>
-            <li><b>must</b> not be clickable if time occupied</li>
-        </ul>
-    </li>
-
-</ul>
