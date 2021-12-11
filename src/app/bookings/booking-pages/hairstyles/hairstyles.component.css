@@ -1,0 +1,15 @@
+
+.Hairstyles{
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.col-3{
+  padding-left: 10px;
+  padding-right: 10px;
+  min-width: 100px;
+  margin-bottom: 30px;
+}
+.col-3 img{
+  width: 80%;
+}
