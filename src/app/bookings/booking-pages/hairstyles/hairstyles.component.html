@@ -21,7 +21,7 @@
   <h2>These are the hairstyles available based on your hair</h2>
   <div class="Hairstyles" *ngIf="$possibleHairstyles else errorDB">
     <div class="col-3" *ngFor="let hairstyle of $possibleHairstyles">
-      <img src="../../../../assets/Test.JPG" >
+      <img src="{{hairstyle.pathToImage}}" >
       <br>
       <a> {{hairstyle.name}}</a>
       <br>
