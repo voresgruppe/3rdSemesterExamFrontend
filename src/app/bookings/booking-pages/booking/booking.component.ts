@@ -100,6 +100,7 @@ $loggedCustomer: Customer | undefined;
       tap(c=>{
         if(c){
           createdCustomer=c;
+
           (<HTMLInputElement>document.getElementById("phoneNumber")).value =c.phoneNumber;
         }})).subscribe(c=> this.$customers?.push(c));
 
