@@ -92,12 +92,17 @@
   </div>
 
   <div *ngIf="showing == manageAppointments">
-    <label>manage</label>
+    <h2>Manage Appointment</h2>
     <br>
-    <label for="manageAppointments_chosenAppointmentId">Manage this hairstyle: </label>
+    <label for="manageAppointments_chosenAppointmentId">Choose Appointment to manage: </label>
     <select id="manageAppointments_chosenAppointmentId" *ngIf="$appointments" (change)="chooseAppointment()">
       <option *ngFor="let appointment of $appointments" value="{{appointment.id}}">Employee: {{getEmployeeNameById(appointment.employeeId)}}, Time {{appointment.appointmentTime}}, Customer {{getCustomerNameById(appointment.customerId)}} </option>
     </select>
+    <br>
+
+    <button (click)="deleteAppointment($manageAppointments_chosenAppointment)"> Delete</button>
+    <Label id="manageAppointments_deleteLabel" [innerHTML]="manageAppointments_deleteLabel_text">{{manageAppointments_deleteLabel_text}}</Label>
+
 
     <div *ngIf="$manageAppointments_chosenAppointment">
       <h3> Appointment details: </h3>

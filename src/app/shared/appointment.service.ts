@@ -33,4 +33,9 @@ export class AppointmentService {
   updateAppointment(id:number, appointment: Appointment){
     return this._http.put<Appointment>(`${environment.api}/Appointment?id=${id}`, appointment)
   }
+
+  deleteAppointment(id: number){
+    return this._http.delete<boolean>(`${environment.api}/Appointment?id=${id}`)
+  }
+
 }
