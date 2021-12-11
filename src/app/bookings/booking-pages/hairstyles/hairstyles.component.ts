@@ -38,4 +38,8 @@ export class HairstylesComponent implements OnInit {
       this._hairstyleService.getHairstyleFromListOfId(this.$chosenHairstyle.possibleStyles).subscribe(h => this.$possibleHairstyles = h);
     }
   }
+
+  CancelChosenHairstyle() {
+    this.$chosenHairstyle = undefined;
+  }
 }

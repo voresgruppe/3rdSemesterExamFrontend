@@ -1,23 +1,40 @@
 
 
-
-<h1>Choose your current hairstyle</h1>
+<div *ngIf="!$chosenHairstyle">
+  <h1>Choose your current hairstyle</h1>
       <div class="Hairstyles" *ngIf="$starterStyles else errorDB">
         <div class="col-3" *ngFor="let hairstyle of $starterStyles">
         <img src="{{hairstyle.pathToImage}}" >
           <br>
+          <div class="hairText">
           <a  (click)="ChooseHairstyle(hairstyle.id)"> {{hairstyle.name}}</a>
           <br>
           Description: {{hairstyle.description}}
+          </div>
         </div>
       </div>
+</div>
 
 <ng-template #errorDB>
   <h2>Error getting items from database...</h2>
 </ng-template>
 
 <div *ngIf="$chosenHairstyle!= undefined" >
+  <h1>Chosen Hairstyle</h1>
 
+  <div class="Hairstyles" >
+    <div class="col-3" >
+      <img src="{{$chosenHairstyle.pathToImage}}" >
+      <br>
+      <div class="hairText">
+        <a  (click)="ChooseHairstyle($chosenHairstyle.id)"> {{$chosenHairstyle.name}}</a>
+        <br>
+        Description: {{$chosenHairstyle.description}}
+      </div>
+    </div>
+  </div>
+
+<button (click)="CancelChosenHairstyle()">Cancel</button>
   <h2>These are the hairstyles available based on your hair</h2>
   <div class="Hairstyles" *ngIf="$possibleHairstyles else errorDB">
     <div class="col-3" *ngFor="let hairstyle of $possibleHairstyles">
