@@ -104,32 +104,46 @@
 
       <form [formGroup]="appointmentForm" (ngSubmit)="UpdateAppointment($manageAppointments_chosenAppointment)">
 
-        <label for="manageAppointments_hairstyleStarter">choose a your current hairstyle </label>
+        <label for="manageAppointments_hairstyleStarter">choose the customers current hairstyle: </label>
+        <br>
         <select id="manageAppointments_hairstyleStarter" formControlName="hairstyleStarterId" *ngIf="$starterStyles" (change)="manageAppointments_chooseStarterStyle()" >
           <option *ngFor="let hairstyle of $starterStyles" value="{{hairstyle.id}}" > {{hairstyle.name}} </option>
         </select>
+        <label> original: {{getHairstyleNameById($manageAppointments_chosenAppointment.hairstyleStarterId)}}  </label>
         <br>
 
-        <label for="manageAppointments_hairstyleEnd">choose a your desired hairstyle </label>
+        <label for="manageAppointments_hairstyleEnd">choose the customers desired hairstyle: </label>
+        <br>
         <select id="manageAppointments_hairstyleEnd" formControlName="hairstyleEndId" >
           <option *ngFor="let hairstyle of $manageAppointments_possibleHairstyles" value="{{hairstyle.id}}" > {{hairstyle.name}} </option>
         </select>
+        <label> original: {{getHairstyleNameById($manageAppointments_chosenAppointment.hairstyleEndId)}} </label>
+
         <br>
 
-        <label for="date">Date: </label>
+        <label for="date">Choose Date: </label>
+        <br>
         <input id="date" type="datetime-local" formControlName="appointmentTime">
+        <label> original: {{$manageAppointments_chosenAppointment.appointmentTime}}</label>
+
+
 
         <br>
         <label for="customerId">Customer: </label>
+        <br>
         <select id="customerId" formControlName="customerId" >
           <option value="{{$manageAppointments_chosenAppointment.customerId}}"> {{getCustomerNameById($manageAppointments_chosenAppointment.customerId)}} </option>
         </select>
 
+
         <br>
-        <label for="employee">Employee: </label>
+        <label for="employee">Choose Employee: </label>
+        <br>
         <select id="employee" formControlName="employeeId" *ngIf="$employees">
           <option *ngFor="let employee of $employees" value="{{employee.id}}"> {{employee.name}} </option>
         </select>
+        <label> original: {{getEmployeeNameById($manageAppointments_chosenAppointment.employeeId)}}</label>
+
         <br>
         <button type="submit" >Update</button>
 
