@@ -1,12 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {async, Observable} from "rxjs";
+import {Component, OnInit} from '@angular/core';
 import {AppointmentService} from "../../../shared/appointment.service";
 import {Appointment} from "../../../shared/appointment.model";
 import {CustomerService} from "../../../shared/customer.service";
 import {Customer} from "../../../shared/customer.model";
-import {take} from "rxjs/operators";
 import {FormBuilder} from "@angular/forms";
-import {LoginDto} from "../../../shared/login.dto";
 import {Hairstyle} from "../../../shared/hairstyle.model";
 import {HairstyleService} from "../../../shared/hairstyle.service";
 import {AuthService} from "../../../shared/auth.service";
@@ -26,10 +23,16 @@ export class EmployeeHomeComponent implements OnInit {
   $appointments: Appointment[] | undefined;
   $appointmentsByLoggedEmployee: Appointment[] | undefined;
   $hairstyles: Hairstyle[] | undefined;
+  $starterStyles: Hairstyle[] | undefined;
   $employees: Employee[] | undefined;
   $chosenHairstyle: Hairstyle | undefined;
   $loggedEmployee: Employee | undefined;
   $chosenPossibleHairstyle: Hairstyle | undefined;
+
+
+  $manageAppointments_chosenAppointment: Appointment| undefined;
+  $manageAppointments_chosenHairstyle: Hairstyle | undefined;
+  $manageAppointments_possibleHairstyles: Hairstyle[] | undefined;
 
 
 
@@ -39,8 +42,14 @@ export class EmployeeHomeComponent implements OnInit {
   hairstyles = "hairstyles";
   addCustomer = "addCustomer";
   myAppointments = "myAppointments";
+
+  manageAppointments= "manageAppointments";
+
+
+
   addHairstyle = "addHairstyle";
   manageHairstyle = "manageHairstyle";
+
 
 
 
@@ -59,6 +68,18 @@ export class EmployeeHomeComponent implements OnInit {
     email: [''],
   });
 
+  appointmentForm = this._fb.group({
+    hairstyleStarterId: [''],
+    hairstyleEndId: [''],
+    appointmentTime: [''],
+    employeeId: [''],
+    customerId: [''],
+  });
+
+
+
+
+
   constructor(private _appointmentService: AppointmentService, private _customerService: CustomerService, private _hairstyleService: HairstyleService,
               private _auth: AuthService, private _employeeService: EmployeeService, private _fb: FormBuilder) { }
 
@@ -68,6 +89,8 @@ export class EmployeeHomeComponent implements OnInit {
     this._customerService.getCustomers().subscribe(a => this.$customers = a as Customer[]);
     this._hairstyleService.getHairstyles().subscribe(h=> this.$hairstyles = h as Hairstyle[])
     this._employeeService.getEmployees().subscribe(e=> this.$employees= e as Employee[])
+    this._hairstyleService.getHairStyles_StarterStyles().subscribe(h=> this.$starterStyles = h as Hairstyle[])
+
     let employeeId = this._auth.getEmployeeID();
     if(employeeId!= 0)
     {
@@ -95,8 +118,19 @@ export class EmployeeHomeComponent implements OnInit {
     return str
   }
 
+  getHairstyleNameById(hairstyleId: number){
+    let str = "Error";
 
-  //TODO hent via API
+    if(this.$hairstyles)
+      for(let hairstyle of this.$hairstyles){
+        if(hairstyle.id == hairstyleId){
+          str = hairstyle.name
+        }
+      }
+    return str;
+  }
+
+
   getCustomerNameById(customerId: number){
 
     let str = "Error";
@@ -108,18 +142,10 @@ export class EmployeeHomeComponent implements OnInit {
       }
     }
 
-    //forsøg på api, men den laver uendelige fejl
-    /*
-    let cus = this._customerService.getCustomerById(customerId)
-    if(cus){
-      cus.subscribe(c=> str = c.name)
-    }
-     */
-
     return str
   }
 
-  //TODO hent via API
+
   getEmployeeNameById(employeeId: number){
 
     let str = "Error";
@@ -150,6 +176,10 @@ export class EmployeeHomeComponent implements OnInit {
 
   showingMyAppointments() {
     this.showing = this.myAppointments;
+  }
+
+  ManageAppointments() {
+    this.showing = this.manageAppointments;
   }
 
   CreateHairstyle(){
@@ -187,13 +217,43 @@ export class EmployeeHomeComponent implements OnInit {
 
   addToPossibleStyle($chosenPossibleHairstyle: Hairstyle | undefined) {
     if ($chosenPossibleHairstyle){
-      let hairstyle = $chosenPossibleHairstyle
-      this.$chosenHairstyle?.possibleStyles.push(hairstyle.id);
-      console.log(this.$chosenHairstyle);
+      this.$chosenHairstyle?.possibleStyles.push($chosenPossibleHairstyle.id);
     }
     if(this.$chosenHairstyle){
-      console.log("hej");
       this._hairstyleService.updateHairstyle(this.$chosenHairstyle.id, this.$chosenHairstyle).subscribe(h=>this.$chosenHairstyle = h);
+    }
+  }
+
+
+  async chooseAppointment() {
+    const e = document.getElementById('manageAppointments_chosenAppointmentId') as HTMLSelectElement;
+    const id = e.options[e.selectedIndex].value;
+
+    this._appointmentService.getAppointmentById(+id).subscribe(a => this.$manageAppointments_chosenAppointment = a)
+
+    await new Promise(f => setTimeout(f, 300))
+  }
+
+  UpdateAppointment(appointment: Appointment | undefined) {
+    const updatedAppointment = this.appointmentForm.value as Appointment;
+    if(appointment){
+      this._appointmentService.updateAppointment(appointment.id, updatedAppointment).subscribe(a=>this.$manageAppointments_chosenAppointment = a);
+    }
+  }
+
+
+
+  async manageAppointments_chooseStarterStyle() {
+    const e = document.getElementById('manageAppointments_hairstyleStarter') as HTMLSelectElement;
+    const id = e.options[e.selectedIndex].value;
+
+
+    this._hairstyleService.getHairstyle(+id).subscribe(h => this.$manageAppointments_chosenHairstyle = h)
+
+    await new Promise(f => setTimeout(f, 300))
+
+    if (this.$manageAppointments_chosenHairstyle) {
+      this._hairstyleService.getHairstyleFromListOfId(this.$manageAppointments_chosenHairstyle.possibleStyles).subscribe(h => this.$manageAppointments_possibleHairstyles = h);
     }
   }
 }

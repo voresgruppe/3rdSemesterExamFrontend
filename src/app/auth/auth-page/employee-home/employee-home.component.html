@@ -31,6 +31,7 @@
       <ul class="dropdown">
         <li><a (click)="showingAppointments()">All Appointments</a></li>
         <li><a (click)="showingMyAppointments()">My Appointments</a></li>
+        <li><a (click)="ManageAppointments()">Manage Appointments</a></li>
       </ul>
     </li>
     <li><a  class="card">Hairstyles &dtrif;</a>
@@ -88,6 +89,54 @@
         {{appointment.appointmentTime}} - Employee: {{getEmployeeNameById(appointment.employeeId)}}
       </li>
     </ul>
+  </div>
+
+  <div *ngIf="showing == manageAppointments">
+    <label>manage</label>
+    <br>
+    <label for="manageAppointments_chosenAppointmentId">Manage this hairstyle: </label>
+    <select id="manageAppointments_chosenAppointmentId" *ngIf="$appointments" (change)="chooseAppointment()">
+      <option *ngFor="let appointment of $appointments" value="{{appointment.id}}">Employee: {{getEmployeeNameById(appointment.employeeId)}}, Time {{appointment.appointmentTime}}, Customer {{getCustomerNameById(appointment.customerId)}} </option>
+    </select>
+
+    <div *ngIf="$manageAppointments_chosenAppointment">
+      <h3> Appointment details: </h3>
+
+      <form [formGroup]="appointmentForm" (ngSubmit)="UpdateAppointment($manageAppointments_chosenAppointment)">
+
+        <label for="manageAppointments_hairstyleStarter">choose a your current hairstyle </label>
+        <select id="manageAppointments_hairstyleStarter" formControlName="hairstyleStarterId" *ngIf="$starterStyles" (change)="manageAppointments_chooseStarterStyle()" >
+          <option *ngFor="let hairstyle of $starterStyles" value="{{hairstyle.id}}" > {{hairstyle.name}} </option>
+        </select>
+        <br>
+
+        <label for="manageAppointments_hairstyleEnd">choose a your desired hairstyle </label>
+        <select id="manageAppointments_hairstyleEnd" formControlName="hairstyleEndId" >
+          <option *ngFor="let hairstyle of $manageAppointments_possibleHairstyles" value="{{hairstyle.id}}" > {{hairstyle.name}} </option>
+        </select>
+        <br>
+
+        <label for="date">Date: </label>
+        <input id="date" type="datetime-local" formControlName="appointmentTime">
+
+        <br>
+        <label for="customerId">Customer: </label>
+        <select id="customerId" formControlName="customerId" >
+          <option value="{{$manageAppointments_chosenAppointment.customerId}}"> {{getCustomerNameById($manageAppointments_chosenAppointment.customerId)}} </option>
+        </select>
+
+        <br>
+        <label for="employee">Employee: </label>
+        <select id="employee" formControlName="employeeId" *ngIf="$employees">
+          <option *ngFor="let employee of $employees" value="{{employee.id}}"> {{employee.name}} </option>
+        </select>
+        <br>
+        <button type="submit" >Update</button>
+
+      </form>
+
+    </div>
+
   </div>
 
   <div *ngIf="showing == hairstyles">
