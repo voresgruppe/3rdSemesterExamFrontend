@@ -4,7 +4,7 @@
 <h1>Choose your current hairstyle</h1>
       <div class="Hairstyles" *ngIf="$starterStyles else errorDB">
         <div class="col-3" *ngFor="let hairstyle of $starterStyles">
-        <img src="../../../../assets/Test.JPG" >
+        <img src="{{hairstyle.pathToImage}}" >
           <br>
           <a  (click)="ChooseHairstyle(hairstyle.id)"> {{hairstyle.name}}</a>
           <br>

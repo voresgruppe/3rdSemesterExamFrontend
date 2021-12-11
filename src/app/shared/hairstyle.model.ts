@@ -5,5 +5,6 @@ export interface Hairstyle {
     description: string,
     price: number,
     possibleStyles: number[],
-    isStarterHairstyle: Boolean
+    isStarterHairstyle: Boolean,
+    pathToImage: string,
 }
