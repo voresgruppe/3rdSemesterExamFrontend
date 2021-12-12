@@ -3,13 +3,13 @@
 <div *ngIf="!$chosenHairstyle">
   <h1>Choose your current hairstyle</h1>
       <div class="Hairstyles" *ngIf="$starterStyles else errorDB">
-        <div class="col-3" *ngFor="let hairstyle of $starterStyles">
-        <img src="{{hairstyle.pathToImage}}" >
-          <br>
-          <div class="hairText">
-          <a  (click)="ChooseHairstyle(hairstyle.id)"> {{hairstyle.name}}</a>
-          <br>
-          Description: {{hairstyle.description}}
+        <div class="col-3"  *ngFor="let hairstyle of $starterStyles">
+          <div (click)="ChooseHairstyle(hairstyle.id)">
+            <img src="{{hairstyle.pathToImage}}" >
+            <br>
+            <a  (click)="ChooseHairstyle(hairstyle.id)"> {{hairstyle.name}}</a>
+            <br>
+            Description: {{hairstyle.description}}
           </div>
         </div>
       </div>
@@ -26,11 +26,9 @@
     <div class="col-3" >
       <img src="{{$chosenHairstyle.pathToImage}}" >
       <br>
-      <div class="hairText">
-        <a  (click)="ChooseHairstyle($chosenHairstyle.id)"> {{$chosenHairstyle.name}}</a>
+        <a> {{$chosenHairstyle.name}}</a>
         <br>
         Description: {{$chosenHairstyle.description}}
-      </div>
     </div>
   </div>
 
@@ -39,14 +37,12 @@
   <div class="Hairstyles" *ngIf="$possibleHairstyles else errorDB">
     <div class="col-3" *ngFor="let hairstyle of $possibleHairstyles">
       <img src="{{hairstyle.pathToImage}}" >
-      <br>
-      <a> {{hairstyle.name}}</a>
-      <br>
-      Price: {{hairstyle.price}} kr | EstimatedTime: {{hairstyle.estimatedTime}} min.
-      <br>
-      Description: {{hairstyle.description}}
-
-
+        <br>
+        <a> {{hairstyle.name}}</a>
+        <br>
+        Price: {{hairstyle.price}} kr | EstimatedTime: {{hairstyle.estimatedTime}} min.
+        <br>
+        Description: {{hairstyle.description}}
     </div>
 </div>
 </div>
