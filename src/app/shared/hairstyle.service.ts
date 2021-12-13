@@ -37,4 +37,8 @@ export class HairstyleService {
     return this._http.put<Hairstyle>(`${environment.api}/Hairstyle/Update?id=${id}`, hairstyle);
   }
 
+  deleteHairstyle(id: number){
+    return this._http.delete<boolean>(`${environment.api}/Hairstyle?id=${id}`)
+  }
+
 }

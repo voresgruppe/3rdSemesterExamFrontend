@@ -47,7 +47,8 @@ export class EmployeeHomeComponent implements OnInit {
 
   manageAppointments= "manageAppointments";
 
-  manageAppointments_deleteLabel_text = "Deletes chosen appointment "
+  manageAppointments_deleteLabel_text = "Deletes chosen appointment ";
+  manageHairstyles_deleteLabel_text = "Deletes chosen hairstyle ";
 
   addHairstyle = "addHairstyle";
   manageHairstyle = "manageHairstyle";
@@ -275,4 +276,18 @@ export class EmployeeHomeComponent implements OnInit {
 
       return deleted
   }
+
+    deleteHairstyle(hairstyle: Hairstyle|undefined) {
+        let deleted: boolean = false;
+        if (hairstyle){
+          this._hairstyleService.deleteHairstyle(hairstyle.id).subscribe(h => deleted = h);
+          deleted = true;
+        }
+        if (deleted){
+          console.log(this.manageHairstyles_deleteLabel_text);
+          this.manageHairstyles_deleteLabel_text = "Hairstyle Deleted, reload page";
+          // @ts-ignore
+          document.getElementById('manageHairstyles_deleteLabel').innerHTML = "Hairstyle Deleted, reload page";
+        }
+    }
 }

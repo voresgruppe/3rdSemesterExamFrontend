@@ -204,12 +204,19 @@
       <option *ngFor="let hairstyle of $hairstyles" value="{{hairstyle.id}}"> {{hairstyle.name}} </option>
     </select>
     <br>
+    <br>
+    <br>
     <label>Add this hairstyle to possible styles: </label>
     <select id="possibleHairstyleId" *ngIf="$hairstyles" (change)="choosePossibleHairstyle()">
       <option *ngFor="let hairstyle of $hairstyles" value="{{hairstyle.id}}"> {{hairstyle.name}} </option>
     </select>
     <br>
     <button (click) = "addToPossibleStyle($chosenPossibleHairstyle)" type="submit">Submit</button>
+    <br>
+    <br>
+    <br>
+    <button (click)="deleteHairstyle($chosenHairstyle)" > Delete</button>
+    <Label id="manageHairstyles_deleteLabel" [innerHTML]="manageHairstyles_deleteLabel_text">{{manageHairstyles_deleteLabel_text}}</Label>
   </div>
 
 </div>
