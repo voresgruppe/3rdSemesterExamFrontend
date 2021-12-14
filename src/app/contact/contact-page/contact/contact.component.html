@@ -21,7 +21,6 @@
 
 <div class="content">
   <div *ngIf="shouldShowEmployees; else showContact">
-
     <ul *ngIf="$employees">
       <li *ngFor="let employee of $employees">
         #{{employee.id}} - Name: {{employee.name}} -- About me: {{employee.aboutMe}}
@@ -32,8 +31,13 @@
 </div>
 
 <ng-template #showContact>
-  <ul>
-    <li>+31 20 82 81</li>
-    <li><a href="mailto: test@vores-site.dk">test@vores-site.dk</a></li>
-  </ul>
+  <div class="contactDetails">
+    <div class="card phone">
+      <p>+31 20 82 81</p>
+    </div>
+    <div class="card email">
+      <a href="mailto: test@vores-site.dk">test@vores-site.dk</a>
+      <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+    </div>
+  </div>
 </ng-template>

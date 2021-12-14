@@ -4,6 +4,9 @@ $navbar-padding-left: 30px;
 $content-left: 250px;
 $content-top: -75px;
 
+$contact-width: 40vw;
+$contact-height: 260px;
+
 //SCSS for the navbar at top of site
 nav {
     &.primary-navigation {
@@ -14,7 +17,6 @@ nav {
         font-size: 16px;
 
         ul li {
-            
             border-right: 2px solid #3ca0e7;
             list-style: none;
             width: $navbar-width;
@@ -27,7 +29,7 @@ nav {
 
         ul li a.card {
             position: fixed;
-            margin-top:5px;
+            margin-top: 5px;
         }
 
         li a {
@@ -45,8 +47,31 @@ nav {
 }
 
 div {
-    &.content{
-        margin-left: $content-left;
-        margin-top: $content-top;
+    &.content {
+        div.contactDetails {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-evenly;
+            margin-left: $content-left;
+            margin-top: $content-top;
+
+            text-align: center;
+
+            .card {
+                border-radius: 6px;
+                width: $contact-width;
+                height: $contact-height;
+                min-width: 500px;
+
+                -webkit-box-shadow: -5px 5px 11px 0px rgba(0, 0, 0, 0.39);
+                box-shadow: -5px 5px 11px 0px rgba(0, 0, 0, 0.39);
+            }
+
+            .phone {
+            }
+
+            .email {
+            }
+        }
     }
 }
