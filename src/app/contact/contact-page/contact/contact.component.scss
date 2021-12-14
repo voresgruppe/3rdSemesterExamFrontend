@@ -1,0 +1,52 @@
+//Variables
+$navbar-width: 110px;
+$navbar-padding-left: 30px;
+$content-left: 250px;
+$content-top: -75px;
+
+//SCSS for the navbar at top of site
+nav {
+    &.primary-navigation {
+        margin: 0 auto;
+        display: block;
+
+        padding: 10px 0 0 0;
+        font-size: 16px;
+
+        ul li {
+            
+            border-right: 2px solid #3ca0e7;
+            list-style: none;
+            width: $navbar-width;
+            height: 30px;
+            padding: 0 $navbar-padding-left;
+            position: relative;
+            text-decoration: none;
+            font-family: arvo;
+        }
+
+        ul li a.card {
+            position: fixed;
+            margin-top:5px;
+        }
+
+        li a {
+            color: black;
+        }
+
+        li a:hover {
+            color: #3ca0e7;
+        }
+
+        li:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+div {
+    &.content{
+        margin-left: $content-left;
+        margin-top: $content-top;
+    }
+}

@@ -11,10 +11,20 @@ import {observable} from "rxjs";
 export class ContactComponent implements OnInit {
   $employees: Employee[] | undefined;
 
+  shouldShowContact: boolean = false;
+
   constructor(private _employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     this._employeeService.getEmployees().subscribe(e=> this.$employees = e);
+  }
+
+  contactInfo() :void {
+    this.shouldShowContact = true
+  }
+
+  ourEmployees():void{
+    this.shouldShowContact = false
   }
 
 }
