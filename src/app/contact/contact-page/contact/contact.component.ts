@@ -11,7 +11,7 @@ import {observable} from "rxjs";
 export class ContactComponent implements OnInit {
   $employees: Employee[] | undefined;
 
-  shouldShowContact: boolean = false;
+  shouldShowEmployees: boolean = false;
 
   constructor(private _employeeService: EmployeeService) { }
 
@@ -20,11 +20,11 @@ export class ContactComponent implements OnInit {
   }
 
   contactInfo() :void {
-    this.shouldShowContact = true
+    this.shouldShowEmployees = false
   }
 
   ourEmployees():void{
-    this.shouldShowContact = false
+    this.shouldShowEmployees = true
   }
 
 }
