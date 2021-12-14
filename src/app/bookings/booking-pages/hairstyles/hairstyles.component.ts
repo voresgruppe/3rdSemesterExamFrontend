@@ -7,7 +7,7 @@ import {Employee} from "../../../shared/employee.model";
 @Component({
   selector: 'app-hairstyles',
   templateUrl: './hairstyles.component.html',
-  styleUrls: ['./hairstyles.component.css']
+  styleUrls: ['./hairstyles.component.scss']
 })
 export class HairstylesComponent implements OnInit {
 

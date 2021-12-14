@@ -1,49 +1,46 @@
-
-
 <div *ngIf="!$chosenHairstyle">
   <h1>Choose your current hairstyle</h1>
-      <div class="Hairstyles" *ngIf="$starterStyles else errorDB">
-        <div class="col-3"  *ngFor="let hairstyle of $starterStyles">
-          <div (click)="ChooseHairstyle(hairstyle.id)">
-            <img src="{{hairstyle.pathToImage}}" >
-            <br>
-            <a  (click)="ChooseHairstyle(hairstyle.id)"> {{hairstyle.name}}</a>
-            <br>
-            Description: {{hairstyle.description}}
-          </div>
-        </div>
+  <div class="Hairstyles" *ngIf="$starterStyles else errorDB">
+    <div class="col-3" *ngFor="let hairstyle of $starterStyles">
+      <div (click)="ChooseHairstyle(hairstyle.id)">
+        <img src="{{hairstyle.pathToImage}}">
+        <br>
+        <a (click)="ChooseHairstyle(hairstyle.id)"> {{hairstyle.name}}</a>
+        <br>
+        Description: {{hairstyle.description}}
       </div>
+    </div>
+  </div>
 </div>
 
 <ng-template #errorDB>
   <h2>Error getting items from database...</h2>
 </ng-template>
 
-<div *ngIf="$chosenHairstyle!= undefined" >
+<div *ngIf="$chosenHairstyle!= undefined">
   <h1>Chosen Hairstyle</h1>
 
-  <div class="Hairstyles" >
-    <div class="col-3" >
-      <img src="{{$chosenHairstyle.pathToImage}}" >
+  <div class="Hairstyles">
+    <div class="col-3">
+      <img src="{{$chosenHairstyle.pathToImage}}">
       <br>
-        <a> {{$chosenHairstyle.name}}</a>
-        <br>
-        Description: {{$chosenHairstyle.description}}
+      <a> {{$chosenHairstyle.name}}</a>
+      <br>
+      Description: {{$chosenHairstyle.description}}
     </div>
   </div>
 
-<button (click)="CancelChosenHairstyle()">Cancel</button>
+  <button (click)="CancelChosenHairstyle()">Cancel</button>
   <h2>These are the hairstyles available based on your hair</h2>
   <div class="Hairstyles" *ngIf="$possibleHairstyles else errorDB">
     <div class="col-3" *ngFor="let hairstyle of $possibleHairstyles">
-      <img src="{{hairstyle.pathToImage}}" >
-        <br>
-        <a> {{hairstyle.name}}</a>
-        <br>
-        Price: {{hairstyle.price}} kr | EstimatedTime: {{hairstyle.estimatedTime}} min.
-        <br>
-        Description: {{hairstyle.description}}
+      <img src="{{hairstyle.pathToImage}}">
+      <br>
+      <a> {{hairstyle.name}}</a>
+      <br>
+      Price: {{hairstyle.price}} kr | EstimatedTime: {{hairstyle.estimatedTime}} min.
+      <br>
+      Description: {{hairstyle.description}}
     </div>
+  </div>
 </div>
-</div>
-
