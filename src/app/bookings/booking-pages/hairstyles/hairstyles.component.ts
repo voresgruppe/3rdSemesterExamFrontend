@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Hairstyle } from '../../../shared/hairstyle.model';
 import { HairstyleService } from '../../../shared/hairstyle.service';
-import {Employee} from "../../../shared/employee.model";
+import { Employee } from "../../../shared/employee.model";
 
 @Component({
   selector: 'app-hairstyles',
@@ -23,7 +23,7 @@ export class HairstylesComponent implements OnInit {
 
   ngOnInit(): void {
     this.$hairstyles = this._hairstyleService.getHairstyles()
-    this._hairstyleService.getHairStyles_StarterStyles().subscribe(h=> this.$starterStyles= h as Hairstyle[])
+    this._hairstyleService.getHairStyles_StarterStyles().subscribe(h => this.$starterStyles = h as Hairstyle[])
   }
 
 
@@ -32,7 +32,7 @@ export class HairstylesComponent implements OnInit {
     this._hairstyleService.getHairstyle(id).subscribe(h => this.$chosenHairstyle = h)
 
     //sørger for man ikke skal trykke "choose" 2 gange
-    await new Promise(f=> setTimeout(f, 100))
+    await new Promise(f => setTimeout(f, 100))
 
     if (this.$chosenHairstyle) {
       this._hairstyleService.getHairstyleFromListOfId(this.$chosenHairstyle.possibleStyles).subscribe(h => this.$possibleHairstyles = h);
@@ -40,6 +40,7 @@ export class HairstylesComponent implements OnInit {
   }
 
   CancelChosenHairstyle() {
-    this.$chosenHairstyle = undefined;
+    this.$chosenHairstyle = undefined
+    this.$possibleHairstyles = undefined
   }
 }
