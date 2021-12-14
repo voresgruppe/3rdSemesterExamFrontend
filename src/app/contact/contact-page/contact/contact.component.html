@@ -11,7 +11,6 @@
 </div>
 
 -->
-
 <nav role="navigation" class="primary-navigation">
   <ul>
     <li><a (click)="contactInfo()" class="card">Contact info</a>
@@ -21,12 +20,15 @@
 
 <div class="content">
   <div *ngIf="shouldShowEmployees; else showContact">
-    <ul *ngIf="$employees">
-      <li *ngFor="let employee of $employees">
-        #{{employee.id}} - Name: {{employee.name}} -- About me: {{employee.aboutMe}}
-      </li>
-    </ul>
-
+    <div class="contactDetails">
+    <div class="EmployeeCard" *ngFor="let employee of $employees">
+      <img src="/assets/women.png" alt="Avatar" style="width:100%">
+      <div class="EmployeeContainer">
+        <h4><b>{{employee.name}}</b></h4>
+        <p>{{employee.aboutMe}}</p>
+      </div>
+    </div>
+  </div>
   </div>
 </div>
 

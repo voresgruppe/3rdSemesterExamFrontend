@@ -1,67 +1,77 @@
-<p>booking works!</p>
+<div class="container">
+  <div class="wrapper">
+    <div class="header"><H3>Booking</H3></div>
+    <div class="bodyWrapper" style="border: 1px solid blue">
+      <div class="body">
+      <label>Type in your phone number</label>
+      <input type="text" id="phoneNumber" [formControl]="syncPhoneNr" [value]="syncPhoneNr.value">
+      <button (click)="checkPhone()">Submit</button>
+      </div>
 
-<label>Type in your phone number</label>
-<input type="text" id="phoneNumber" [formControl]="syncPhoneNr" [value]="syncPhoneNr.value">
-<button (click)="checkPhone()">Submit</button>
+    <div class="body">
+      <div *ngIf="!userAvailable() && getPhoneCheckedOnce()" class="newUser">
+        <p>Insert your details</p>
 
-<div *ngIf="!userAvailable() && getPhoneCheckedOnce()" class="newUser">
-  <p>Insert your details</p>
+        <form [formGroup]="customerForm" (ngSubmit)="CreateCustomer()">
+          <label for="name">Name: </label>
+          <input id="name" type="text" formControlName="name">
+          <br>
 
-  <form [formGroup]="customerForm" (ngSubmit)="CreateCustomer()">
+          <label for="phone">Phone: </label>
+          <input id="phone" type="text" formControlName="phoneNumber">
+          <!--[formControl]="syncPhoneNr" [value]="syncPhoneNr.value"-->
+          <br>
+          <label for="email">Email: </label>
+          <input id="email" type="text" formControlName="email">
+          <br>
+          <button type="submit">Submit</button>
 
-    <label for="name">Name: </label>
-    <input id="name" type="text" formControlName="name">
-    <br>
+        </form>
+      </div>
 
-    <label for="phone">Phone: </label>
-    <input id="phone" type="text" formControlName="phoneNumber"> <!--[formControl]="syncPhoneNr" [value]="syncPhoneNr.value"-->
-    <br>
-    <label for="email">Email: </label>
-    <input id="email" type="text" formControlName="email">
-    <br>
-    <button type="submit">Submit</button>
 
-  </form>
+      <div *ngIf="userAvailable() && getPhoneCheckedOnce()" class="existingUser">
+        <div class="welcomeText">
+        you are already in our system.
+          <br>welcome back {{getLoggedCustomerName()}}
+        </div>
+        <form [formGroup]="appointmentForm" (ngSubmit)="CreateAppointment()">
+          <label for="hairstyleStarter">choose a your current hairstyle </label>
+          <select id="hairstyleStarter" formControlName="hairstyleStarterId" *ngIf="$hairstyles"
+                  (change)="chooseStarterStyle()">
+            <option *ngFor="let hairstyle of $starterStyles" value="{{hairstyle.id}}"> {{hairstyle.name}} </option>
+          </select>
+          <br>
 
+          <label for="hairstyleEnd">choose a your desired hairstyle </label>
+          <select id="hairstyleEnd" formControlName="hairstyleEndId">
+            <option *ngFor="let hairstyle of $possibleHairstyles" value="{{hairstyle.id}}"> {{hairstyle.name}} </option>
+          </select>
+          <br>
+
+          <label for="date">Date: </label>
+          <input id="date" type="datetime-local" formControlName="appointmentTime">
+          <label for="customerId"> </label>
+
+          <br>
+          <label for="customerId">Customer: </label>
+          <select id="customerId" formControlName="customerId" *ngIf="$loggedCustomer">
+            <option value="{{$loggedCustomer.id}}"> {{$loggedCustomer.name}} </option>
+          </select>
+
+          <br>
+          <label for="employee">Employee: </label>
+          <select id="employee" formControlName="employeeId" *ngIf="$employees">
+            <option *ngFor="let employee of $employees" value="{{employee.id}}"> {{employee.name}} </option>
+          </select>
+          <br>
+          <button type="submit">Submit</button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+  </div>
 </div>
 
-
-<div *ngIf="userAvailable() && getPhoneCheckedOnce()" class="existingUser">
-  you are already in our system, welcome back {{getLoggedCustomerName()}}
-
-  <form [formGroup]="appointmentForm" (ngSubmit)="CreateAppointment()">
-
-    <label for="hairstyleStarter">choose a your current hairstyle </label>
-    <select id="hairstyleStarter" formControlName="hairstyleStarterId" *ngIf="$hairstyles" (change)="chooseStarterStyle()">
-      <option *ngFor="let hairstyle of $starterStyles" value="{{hairstyle.id}}" > {{hairstyle.name}} </option>
-    </select>
-    <br>
-
-    <label for="hairstyleEnd">choose a your desired hairstyle </label>
-    <select id="hairstyleEnd" formControlName="hairstyleEndId" >
-      <option *ngFor="let hairstyle of $possibleHairstyles" value="{{hairstyle.id}}" > {{hairstyle.name}} </option>
-    </select>
-    <br>
-
-    <label for="date">Date: </label>
-    <input id="date" type="datetime-local" formControlName="appointmentTime">
-    <label for="customerId" > </label>
-
-    <br>
-    <label for="customerId">Customer: </label>
-    <select id="customerId" formControlName="customerId" *ngIf="$loggedCustomer" >
-      <option value="{{$loggedCustomer.id}}"> {{$loggedCustomer.name}} </option>
-    </select>
-
-    <br>
-    <label for="employee">Employee: </label>
-    <select id="employee" formControlName="employeeId" *ngIf="$employees">
-      <option *ngFor="let employee of $employees" value="{{employee.id}}"> {{employee.name}} </option>
-    </select>
-    <br>
-    <button type="submit" >Submit</button>
-
-  </form>
-
-
-</div>

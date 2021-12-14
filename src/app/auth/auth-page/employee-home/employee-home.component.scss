@@ -13,7 +13,7 @@ nav {
         font-size: 16px;
 
         ul li {
-            
+
             border-right: 2px solid #3ca0e7;
             list-style: none;
             width: $navbar-width;
@@ -84,7 +84,7 @@ nav {
         ul li ul li a {
             transition: all 0.5s ease;
         }
-        
+
     }
 }
 
@@ -94,3 +94,25 @@ div {
         margin-top: -120px;
     }
 }
+
+.Header{
+  width: 100%;
+  height: auto;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(3,1fr);
+}
+
+.Header > div{
+  justify-self: center;
+  align-self: center;
+}
+
+h1{
+  font-family: roboto;
+  font-weight: 500;
+  color: #404040;
+}
+
+

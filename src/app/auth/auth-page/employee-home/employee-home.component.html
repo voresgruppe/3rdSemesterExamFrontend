@@ -15,32 +15,40 @@
   </ul>
 </nav>
 -->
-
-<h1>Welcome {{getLoggedEmployeeName()}}!</h1>
-
+<div class="Header">
+  <div>
+    <h3>_________________________________________________________</h3>
+  </div>
+  <div>
+    <h1>Welcome {{getLoggedEmployeeName()}}!</h1>
+  </div>
+  <div>
+    <h3>_________________________________________________________</h3>
+  </div>
+</div>
 <nav role="navigation" class="primary-navigation">
   <ul>
-    <li><a routerLink="../" class="card">Logout</a></li>
-    <li><a  class="card">Customers &dtrif;</a>
+    <li><a class="card">Customers &dtrif;</a>
       <ul class="dropdown">
         <li><a (click)="click_allCustomers()">All Customers</a></li>
         <li><a (click)="click_AddCustomer()">Add Customer</a></li>
       </ul>
     </li>
-    <li><a  class="card">Appointments&dtrif;</a>
+    <li><a class="card">Appointments&dtrif;</a>
       <ul class="dropdown">
         <li><a (click)="showingAppointments()">All Appointments</a></li>
         <li><a (click)="showingMyAppointments()">My Appointments</a></li>
         <li><a (click)="ManageAppointments()">Manage Appointments</a></li>
       </ul>
     </li>
-    <li><a  class="card">Hairstyles &dtrif;</a>
+    <li><a class="card">Hairstyles &dtrif;</a>
       <ul class="dropdown">
         <li><a (click)="click_allHairstyles()">All Hairstyles</a></li>
         <li><a (click)="click_manageHairstyles()">Manage Hairstyles</a></li>
         <li><a (click)="click_AddHairstyle()">Add Hairstyle</a></li>
       </ul>
     </li>
+    <li><a routerLink="../" class="card">Logout</a></li>
   </ul>
 </nav>
 
@@ -96,13 +104,16 @@
     <br>
     <label for="manageAppointments_chosenAppointmentId">Choose Appointment to manage: </label>
     <select id="manageAppointments_chosenAppointmentId" *ngIf="$appointments" (change)="chooseAppointment()">
-      <option>Choose Appointment </option>
-      <option *ngFor="let appointment of $appointments" value="{{appointment.id}}">Employee: {{getEmployeeNameById(appointment.employeeId)}}, Time {{appointment.appointmentTime}}, Customer {{getCustomerNameById(appointment.customerId)}} </option>
+      <option>Choose Appointment</option>
+      <option *ngFor="let appointment of $appointments" value="{{appointment.id}}">
+        Employee: {{getEmployeeNameById(appointment.employeeId)}}, Time {{appointment.appointmentTime}},
+        Customer {{getCustomerNameById(appointment.customerId)}} </option>
     </select>
     <br>
 
-    <button (click)="deleteAppointment($manageAppointments_chosenAppointment)" > Delete</button>
-    <Label id="manageAppointments_deleteLabel" [innerHTML]="manageAppointments_deleteLabel_text">{{manageAppointments_deleteLabel_text}}</Label>
+    <button (click)="deleteAppointment($manageAppointments_chosenAppointment)"> Delete</button>
+    <Label id="manageAppointments_deleteLabel"
+           [innerHTML]="manageAppointments_deleteLabel_text">{{manageAppointments_deleteLabel_text}}</Label>
 
 
     <div *ngIf="$manageAppointments_chosenAppointment">
@@ -112,16 +123,18 @@
 
         <label for="manageAppointments_hairstyleStarter">choose the customers current hairstyle: </label>
         <br>
-        <select id="manageAppointments_hairstyleStarter" formControlName="hairstyleStarterId" *ngIf="$starterStyles" (change)="manageAppointments_chooseStarterStyle()" >
-          <option *ngFor="let hairstyle of $starterStyles" value="{{hairstyle.id}}" > {{hairstyle.name}} </option>
+        <select id="manageAppointments_hairstyleStarter" formControlName="hairstyleStarterId" *ngIf="$starterStyles"
+                (change)="manageAppointments_chooseStarterStyle()">
+          <option *ngFor="let hairstyle of $starterStyles" value="{{hairstyle.id}}"> {{hairstyle.name}} </option>
         </select>
         <label> original: {{getHairstyleNameById($manageAppointments_chosenAppointment.hairstyleStarterId)}}  </label>
         <br>
 
         <label for="manageAppointments_hairstyleEnd">choose the customers desired hairstyle: </label>
         <br>
-        <select id="manageAppointments_hairstyleEnd" formControlName="hairstyleEndId" >
-          <option *ngFor="let hairstyle of $manageAppointments_possibleHairstyles" value="{{hairstyle.id}}" > {{hairstyle.name}} </option>
+        <select id="manageAppointments_hairstyleEnd" formControlName="hairstyleEndId">
+          <option *ngFor="let hairstyle of $manageAppointments_possibleHairstyles"
+                  value="{{hairstyle.id}}"> {{hairstyle.name}} </option>
         </select>
         <label> original: {{getHairstyleNameById($manageAppointments_chosenAppointment.hairstyleEndId)}} </label>
 
@@ -133,12 +146,12 @@
         <label> original: {{$manageAppointments_chosenAppointment.appointmentTime}}</label>
 
 
-
         <br>
         <label for="customerId">Customer: </label>
         <br>
-        <select id="customerId" formControlName="customerId" >
-          <option value="{{$manageAppointments_chosenAppointment.customerId}}"> {{getCustomerNameById($manageAppointments_chosenAppointment.customerId)}} </option>
+        <select id="customerId" formControlName="customerId">
+          <option
+            value="{{$manageAppointments_chosenAppointment.customerId}}"> {{getCustomerNameById($manageAppointments_chosenAppointment.customerId)}} </option>
         </select>
 
 
@@ -151,7 +164,7 @@
         <label> original: {{getEmployeeNameById($manageAppointments_chosenAppointment.employeeId)}}</label>
 
         <br>
-        <button type="submit" >Update</button>
+        <button type="submit">Update</button>
 
       </form>
 
@@ -211,12 +224,13 @@
       <option *ngFor="let hairstyle of $hairstyles" value="{{hairstyle.id}}"> {{hairstyle.name}} </option>
     </select>
     <br>
-    <button (click) = "addToPossibleStyle($chosenPossibleHairstyle)" type="submit">Submit</button>
+    <button (click)="addToPossibleStyle($chosenPossibleHairstyle)" type="submit">Submit</button>
     <br>
     <br>
     <br>
-    <button (click)="deleteHairstyle($chosenHairstyle)" > Delete</button>
-    <Label id="manageHairstyles_deleteLabel" [innerHTML]="manageHairstyles_deleteLabel_text">{{manageHairstyles_deleteLabel_text}}</Label>
+    <button (click)="deleteHairstyle($chosenHairstyle)"> Delete</button>
+    <Label id="manageHairstyles_deleteLabel"
+           [innerHTML]="manageHairstyles_deleteLabel_text">{{manageHairstyles_deleteLabel_text}}</Label>
   </div>
 
 </div>
