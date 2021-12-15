@@ -21,25 +21,34 @@
 <div class="content">
   <div *ngIf="shouldShowEmployees; else showContact">
     <div class="contactDetails">
-    <div class="EmployeeCard" *ngFor="let employee of $employees">
-      <img src="/assets/women.png" alt="Avatar" style="width:100%">
-      <div class="EmployeeContainer">
-        <h4><b>{{employee.name}}</b></h4>
-        <p>{{employee.aboutMe}}</p>
+      <div class="EmployeeCard" *ngFor="let employee of $employees">
+        <img src="/assets/women.png" alt="Avatar" style="width:100%">
+        <div class="EmployeeContainer">
+          <h4><b>{{employee.name}}</b></h4>
+          <p>{{employee.aboutMe}}</p>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </div>
 
 <ng-template #showContact>
   <div class="contactDetails">
     <div class="card phone">
-      <p>+31 20 82 81</p>
+      <div class="vert-center">
+        <mat-icon aria-hidden="false" aria-label="Phone icon">phone</mat-icon>
+        <p>Any questions that has not been answered on the website? Just call the number below, and get in contact with
+          one of out many professional workers</p>
+        <p id="phone-number">+31 20 82 81</p>
+      </div>
     </div>
     <div class="card email">
-      <a href="mailto: test@vores-site.dk">test@vores-site.dk</a>
-      <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+      <div class="vert-center">
+        <mat-icon aria-hidden="false" aria-label="Email icon">email</mat-icon>
+        <p>Sometime questions arise, and that is why we give you ways to reach out to us! Feel free to contact us at any
+          time on the email below. Both questions and feedback is welcome</p>
+        <a id="email-address" href="mailto: test@vores-site.dk">test@vores-site.dk</a>
+      </div>
     </div>
   </div>
 </ng-template>

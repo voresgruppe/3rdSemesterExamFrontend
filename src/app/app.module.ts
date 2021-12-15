@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home-page/home/home.component';
 import {AuthInterceptor} from "./auth/interceptors/auth.interceptor";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon'
 
 
 
