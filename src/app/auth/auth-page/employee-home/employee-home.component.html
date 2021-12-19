@@ -84,7 +84,7 @@
       <li *ngFor="let appointment of $appointments">
 
         #{{appointment.id}} - Customer: {{getCustomerNameById(appointment.customerId)}} Date:
-        {{appointment.appointmentTime}} - Employee: {{getEmployeeNameById(appointment.employeeId)}}
+        {{appointment.appointmentTime}} - Employee: {{getEmployeeNameById(appointment.employeeId)}} - Current hairstyle: {{getHairstyleNameById(appointment.hairstyleStarterId)}} - Desired hairstyle: {{getHairstyleNameById(appointment.hairstyleEndId)}}
       </li>
     </ul>
   </div>
@@ -95,6 +95,7 @@
 
         #{{appointment.id}} - Customer: {{getCustomerNameById(appointment.customerId)}} Date:
         {{appointment.appointmentTime}} - Employee: {{getEmployeeNameById(appointment.employeeId)}}
+        - Current hairstyle: {{getHairstyleNameById(appointment.hairstyleStarterId)}} - Desired hairstyle: {{getHairstyleNameById(appointment.hairstyleEndId)}}
       </li>
     </ul>
   </div>
